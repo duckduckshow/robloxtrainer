@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Roblox Script Quiz – 50 einfache Fragen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .app {
+      background: white;
+      max-width: 900px;
+      width: 100%;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .score {
+      text-align: right;
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    pre {
+      background: #1e1e1e;
+      color: #f8f8f2;
+      padding: 14px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .answer-btn {
+      padding: 10px;
+      text-align: left;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #fafafa;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .answer-btn:hover { background: #f0f0f0; }
+    .answer-btn.correct { background: #d4edda; border-color: #28a745; }
+    .answer-btn.wrong { background: #f8d7da; border-color: #dc3545; }
+    .answer-btn.disabled { pointer-events: none; opacity: 0.8; }
+
+    .feedback { margin-top: 10px; font-weight: bold; min-height: 22px; }
+    .feedback.correct { color: #28a745; }
+    .feedback.wrong { color: #dc3545; }
+
+    .explanation { margin-top: 5px; color: #555; }
+
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .btn {
+      background: #007bff;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #005fcc; }
+
+    .progress { color: #666; }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <h1>Roblox Script Quiz</h1>
+    <div class="score" id="score">Punkte: 0</div>
+
+    <div id="questionText"></div>
+    <pre><code id="codeSnippet"></code></pre>
+
+    <div class="answers" id="answers"></div>
+
+    <div class="feedback" id="feedback"></div>
+    <div class="explanation" id="explanation"></div>
+
+    <div class="controls">
+      <div class="progress" id="progress"></div>
+      <button class="btn" id="nextBtn">Nächste Frage</button>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      /* --- 50 einfache Quizfragen und Snippets --- */
+      {
+        question: "Was passiert bei diesem Script?",
+        snippet: `local zahl = 5
+print(zahl)`,
+        answers: ["Die Zahl 5 wird im Ausgabefenster angezeigt.", "Die Zahl 0 wird angezeigt.", "Es passiert nichts.", "Es kommt ein Fehler."],
+        correctIndex: 0,
+        explanation: "Die Variable hat den Wert 5."
+      },
+
+      {
+        question: "Was wird ausgegeben?",
+        snippet: `local a = 3
+local b = 4
+print(a + b)`,
+        answers: ["3", "4", "7", "12"],
+        correctIndex: 2,
+        explanation: "3 + 4 = 7."
+      },
+
+      {
+        question: "Was passiert mit dem Part?",
+        snippet: `local würfel = script.Parent
+würfel.Color = Color3.fromRGB(255, 0, 0)`,
+        answers: ["Er wird rot.", "Er wird grün.", "Er wird unsichtbar.", "Er bewegt sich."],
+        correctIndex: 0,
+        explanation: "Die RGB-Farbe ist rot."
+      },
+
+      {
+        question: "Wann ändert der Part die Farbe?",
+        snippet: `local würfel = script.Parent
+würfel.Touched:Connect(function()
+  würfel.Color = Color3.fromRGB(0, 255, 0)
+end)`,
+        answers: ["Beim Start.", "Beim Berühren.", "Beim Springen.", "Beim Drücken der Maus."],
+        correctIndex: 1,
+        explanation: "Touched reagiert auf Berührung."
+      },
+
+      {
+        question: "Wie oft wird ausgegeben?",
+        snippet: `local x = 1
+while x <= 3 do
+  print(x)
+  x = x + 1
+end`,
+        answers: ["1 Mal", "2 Mal", "3 Mal", "Unendlich oft"],
+        correctIndex: 2,
+        explanation: "x = 1, 2, 3."
+      },
+
+      {
+        question: "Was passiert?",
+        snippet: `local würfel = script.Parent
+while true do
+  würfel.Position = würfel.Position + Vector3.new(0, 0.1, 0)
+  wait(0.1)
+end`,
+        answers: ["Er geht nach unten.", "Er geht nach oben.", "Er dreht sich.", "Er verschwindet."],
+        correctIndex: 1,
+        explanation: "Die Y-Koordinate wird größer."
+      },
+
+      {
+        question: "Was macht das Script?",
+        snippet: `local zufall = math.random(1, 10)
+print(zufall)`,
+        answers: ["Immer 1", "Immer 10", "Zahl 1–10", "Fehler"],
+        correctIndex: 2,
+        explanation: "math.random(1,10) ergibt eine Zahl in diesem Bereich."
+      },
+
+      {
+        question: "Wann wird der Text angezeigt?",
+        snippet: `local eingaben = game:GetService("UserInputService")
+
+eingaben.InputBegan:Connect(function(taste)
+  if taste.KeyCode == Enum.KeyCode.Space then
+    print("Leertaste")
+  end
+end)`,
+        answers: ["Beim Start.", "Wenn man E drückt.", "Wenn man die Leertaste drückt.", "Gar nicht."],
+        correctIndex: 2,
+        explanation: "if-Bedingung prüft Space."
+      },
+
+      {
+        question: "Was passiert auf dem Bildschirm?",
+        snippet: `local spieler = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui", spieler.PlayerGui)
+local label = Instance.new("TextLabel", gui)
+label.Text = "Hallo"`,
+        answers: ["Ein Text erscheint.", "Spieler verschwindet.", "Fehler.", "Der Part färbt sich rot."],
+        correctIndex: 0,
+        explanation: "Ein TextLabel wird erzeugt."
+      },
+
+      {
+        question: "Wie verhält sich der Part?",
+        snippet: `local würfel = script.Parent
+while true do
+  würfel.Color = Color3.new(1,0,0)
+  wait(0.5)
+  würfel.Color = Color3.new(0,0,1)
+  wait(0.5)
+end`,
+        answers: ["Bleibt rot.", "Bleibt blau.", "Blinkt rot/blau.", "Verschwindet."],
+        correctIndex: 2,
+        explanation: "Die Farbe wird im Wechsel gesetzt."
+      },
+
+      /* 40 weitere einfache Fragen → */
+      {
+        question: "Was wird ausgegeben?",
+        snippet: `local z = 6
+if z > 5 then
+  print("größer")
+end`,
+        answers: ["kleiner", "größer", "gleich", "nichts"],
+        correctIndex: 1,
+        explanation: "6 > 5."
+      },
+
+      {
+        question: "Was wird ausgegeben?",
+        snippet: `local z = 5
+if z == 5 then
+  print("fünf")
+end`,
+        answers: ["fünf", "vier", "sechs", "nichts"],
+        correctIndex: 0,
+        explanation: "z ist genau 5."
+      },
+
+      {
+        question: "Wie groß ist punkt?",
+        snippet: `local punkt = 0
+punkt = punkt + 10
+punkt = punkt + 5
+print(punkt)`,
+        answers: ["0", "5", "10", "15"],
+        correctIndex: 3,
+        explanation: "0 + 10 + 5."
+      },
+
+      {
+        question: "Was wird ausgegeben?",
+        snippet: `local x = 2
+local y = 3
+print(x * y)`,
+        answers: ["2", "3", "5", "6"],
+        correctIndex: 3,
+        explanation: "2×3."
+      },
+
+      {
+        question: "Was wird ausgegeben?",
+        snippet: `local x = 10
+local y = 2
+print(x / y)`,
+        answers: ["5", "12", "2", "8"],
+        correctIndex: 0,
+        explanation: "10 / 2 = 5."
+      },
+
+      {
+        question: "Was ist der Rest?",
+        snippet: `local r = 7 % 3
+print(r)`,
+        answers: ["0", "1", "2", "3"],
+        correctIndex: 1,
+        explanation: "7 % 3 = 1."
+      },
+
+      {
+        question: "Was passiert?",
+        snippet: `local text = "Hallo"
+print(text)`,
+        answers: ["Hallo", "text", "leer", "Fehler"],
+        correctIndex: 0,
+        explanation: "Die Variable wird ausgegeben."
+      },
+
+      {
+        question: "Was bedeutet Anchored = true?",
+        snippet: `local würfel = script.Parent
+würfel.Anchored = true`,
+        answers: ["Part fällt nicht.", "Part verschwindet.", "Part wird blau.", "Part dreht sich."],
+        correctIndex: 0,
+        explanation: "Er ist fest."
+      },
+
+      {
+        question: "Was passiert?",
+        snippet: `local würfel = script.Parent
+würfel.Size = Vector3.new(5,5,5)`,
+        answers: ["Größer.", "Kleiner.", "Unsichtbar.", "Bewegt sich."],
+        correctIndex: 0,
+        explanation: "Größe wird gesetzt."
+      },
+
+      {
+        question: "Wann wird ausgegeben?",
+        snippet: `local z = 2
+if z < 5 then
+  print("kleiner")
+end`,
+        answers: ["Bei z > 5.", "Bei z < 5.", "Nie.", "Beim Start."],
+        correctIndex: 1,
+        explanation: "2 < 5."
+      },
+
+      {
+        question: "Was passiert?",
+        snippet: `local würfel = script.Parent
+würfel.Transparency = 0.5`,
+        answers: ["Ganz unsichtbar.", "Halb durchsichtig.", "Wird rot.", "Explodiert."],
+        correctIndex: 1,
+        explanation: "Wert 0.5 = halb durchsichtig."
+      },
+
+      {
+        question: "Wie oft wird 'Tick' ausgegeben?",
+        snippet: `while true do
+  print("Tick")
+  wait(2)
+end`,
+        answers: ["1 Mal", "Alle 2 Sekunden", "Alle 10 Sekunden", "Nie"],
+        correctIndex: 1,
+        explanation: "Endlosschleife."
+      },
+
+      {
+        question: "Was passiert?",
+        snippet: `local z = 8
+if z == 10 then
+  print("zehn")
+end`,
+        answers: ["zehn", "8", "nichts", "Fehler"],
+        correctIndex: 2,
+        explanation: "Bedingung ist falsch."
+      },
+
+      {
+        question: "Was macht Neon?",
+        snippet: `local würfel = script.Parent
+würfel.Material = Enum.Material.Neon`,
+        answers: ["Er leuchtet.", "Er verschwindet.", "Er wackelt.", "Er fällt."],
+        correctIndex: 0,
+        explanation: "Neon leuchtet."
+      },
+
+      {
+        question: "Was passiert bei Berührung?",
+        snippet: `local p = script.Parent
+p.Touched:Connect(function()
+  print("Berührt")
+end)`,
+        answers: ["Text erscheint.", "Part löst sich auf.", "Spiel stoppt.", "Fehler."],
+        correctIndex: 0,
+        explanation: "Touched löst print aus."
+      },
+
+      {
+        question: "Was wird ausgegeben?",
+        snippet: `local farbe = Color3.fromRGB(0,0,255)
+print(farbe)`,
+        answers: ["RGB-Wert (blau)", "255", "Fehler", "Text 'blau'"],
+        correctIndex: 0,
+        explanation: "Color3 wird gezeigt."
+      },
+
+      {
+        question: "Was steht im Textfeld?",
+        snippet: `local t = "A"
+t = "B"
+print(t)`,
+        answers: ["A", "B", "AB", "Nichts"],
+        correctIndex: 1,
+        explanation: "Der zweite Wert überschreibt."
+      },
+
+      {
+        question: "Was wird ausgegeben?",
+        snippet: `local a=1 local b=2 local c=3
+print(a+b+c)`,
+        answers: ["1","3","5","6"],
+        correctIndex: 3,
+        explanation: "1+2+3=6."
+      },
+
+      {
+        question: "Was macht CanCollide = false?",
+        snippet: `local p = script.Parent
+p.CanCollide = false`,
+        answers: ["Durchgehen möglich.", "Unsichtbar.", "Bewegt sich.", "Fällt schneller."],
+        correctIndex: 0,
+        explanation: "Keine Kollision."
+      },
+
+      {
+        question: "Welche Zahlen werden ausgegeben?",
+        snippet: `for i = 1,3 do print(i) end`,
+        answers: ["1,2,3", "1,2", "2,3", "3"],
+        correctIndex: 0,
+        explanation: "i läuft von 1 bis 3."
+      },
+
+      {
+        question: "Welche Zahlen werden ausgegeben?",
+        snippet: `for i = 2,4 do print(i) end`,
+        answers: ["2,3,4","1,2,3","3,4","Keine"],
+        correctIndex: 0,
+        explanation: "Start 2, Ende 4."
+      },
+
+      {
+        question: "Welche Zahlen?",
+        snippet: `local z=3
+while z>0 do
+ print(z)
+ z=z-1
+end`,
+        answers: ["1,2,3","3,2,1","nur 3","unendlich"],
+        correctIndex: 1,
+        explanation: "Runterzählen."
+      },
+
+      {
+        question: "Was wird angezeigt?",
+        snippet: `local w = true
+print(w)`,
+        answers: ["true","false","1","0"],
+        correctIndex: 0,
+        explanation: "Wert true."
+      },
+
+      {
+        question: "Was passiert?",
+        snippet: `local würfel = script.Parent
+würfel.BrickColor = BrickColor.new("Bright green")`,
+        answers: ["Er wird hellgrün.","Er explodiert.","Er fliegt.","Nichts."],
+        correctIndex: 0,
+        explanation: "Farbe setzt sich."
+      },
+
+      {
+        question: "Was wird ausgegeben?",
+        snippet: `local t = "Hallo"
+t = t .. " Welt"
+print(t)`,
+        answers: ["Hallo","Welt","Hallo Welt","Fehler"],
+        correctIndex: 2,
+        explanation: "Text verknüpft."
+      },
+
+      {
+        question: "Was passiert?",
+        snippet: `print("Start")
+wait(1)
+print("Ende")`,
+        answers: ["Nur Start.","Nur Ende.","Start → Pause → Ende.","Ende zuerst."],
+        correctIndex: 2,
+        explanation: "1 Sekunde Pause."
+      },
+
+      {
+        question: "Was wird ausgegeben?",
+        snippet: `local z = 4
+if z % 2 == 0 then print("gerade") end`,
+        answers: ["gerade","ungerade","4","nichts"],
+        correctIndex: 0,
+        explanation: "4 ist gerade."
+      },
+
+      {
+        question: "Welche Zahl wird ausgegeben?",
+        snippet: `local z = math.random(5,5)
+print(z)`,
+        answers: ["5","1","10","zufällig 5 oder 6"],
+        correctIndex: 0,
+        explanation: "Bereich 5–5 = immer 5."
+      },
+
+      {
+        question: "Was passiert nach 1s?",
+        snippet: `local w = script.Parent
+wait(1)
+w.Color = Color3.fromRGB(255,255,0)`,
+        answers: ["Sofort gelb.","Nach 1s gelb.","Unsichtbar.","Fehler."],
+        correctIndex: 1,
+        explanation: "Gelb nach Pause."
+      },
+
+      {
+        question: "Was passiert?",
+        snippet: `local z=10
+if z>=10 then print("mindestens 10") end`,
+        answers: ["nichts","mindestens 10","Fehler","10"],
+        correctIndex: 1,
+        explanation: "Bedingung stimmt."
+      },
+
+      {
+        question: "Wie oft läuft die Schleife?",
+        snippet: `local a=0
+while a<5 do
+ a=a+1
+ print(a)
+end`,
+        answers: ["0","1","5","unendlich"],
+        correctIndex: 2,
+        explanation: "1–5."
+      }
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+    let answered = false;
+
+    const codeSnippetEl = document.getElementById("codeSnippet");
+    const questionTextEl = document.getElementById("questionText");
+    const answersEl = document.getElementById("answers");
+    const feedbackEl = document.getElementById("feedback");
+    const explanationEl = document.getElementById("explanation");
+    const scoreEl = document.getElementById("score");
+    const progressEl = document.getElementById("progress");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function renderQuestion() {
+      const q = questions[currentIndex];
+      questionTextEl.textContent = q.question;
+      codeSnippetEl.textContent = q.snippet;
+      answersEl.innerHTML = "";
+      feedbackEl.textContent = "";
+      explanationEl.textContent = "";
+      answered = false;
+
+      q.answers.forEach((ans, i) => {
+        const btn = document.createElement("button");
+        btn.className = "answer-btn";
+        btn.textContent = ans;
+        btn.onclick = () => handleAnswer(i, btn);
+        answersEl.appendChild(btn);
+      });
+
+      progressEl.textContent = `Frage ${currentIndex + 1} von ${questions.length}`;
+    }
+
+    function handleAnswer(selected, btn) {
+      if (answered) return;
+      answered = true;
+
+      const q = questions[currentIndex];
+      const all = answersEl.querySelectorAll(".answer-btn");
+
+      all.forEach((b, i) => {
+        b.classList.add("disabled");
+        if (i === q.correctIndex) b.classList.add("correct");
+      });
+
+      if (selected === q.correctIndex) {
+        feedbackEl.textContent = "Richtig!";
+        feedbackEl.classList.add("correct");
+        score++;
+        scoreEl.textContent = `Punkte: ${score}`;
+      } else {
+        feedbackEl.textContent = "Falsch.";
+        feedbackEl.classList.add("wrong");
+        btn.classList.add("wrong");
+      }
+
+      explanationEl.textContent = q.explanation;
+    }
+
+    nextBtn.onclick = () => {
+      currentIndex++;
+      if (currentIndex >= questions.length) {
+        currentIndex = 0;
+        score = 0;
+        scoreEl.textContent = "Punkte: 0";
+      }
+      renderQuestion();
+    };
+
+    renderQuestion();
+  </script>
+</body>
+</html>

@@ -2,13 +2,13 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Roblox Script Quiz – 50 einfache Fragen</title>
+  <title>Roblox Script Quiz – 100 Einsteigerfragen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     * {
       box-sizing: border-box;
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     body {
@@ -20,88 +20,189 @@
     }
 
     .app {
-      background: white;
+      background: #ffffff;
       max-width: 900px;
       width: 100%;
-      margin: 20px;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 14px;
     }
 
     h1 {
+      font-size: 18px;
       text-align: center;
-      margin-top: 0;
+      margin: 4px 0 8px 0;
     }
 
     .score {
       text-align: right;
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 4px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .category {
+      font-weight: 600;
       color: #444;
-      margin-bottom: 10px;
+    }
+
+    .hint-btn {
+      background: none;
+      border: none;
+      padding: 2px 6px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #007bff;
+      border-radius: 4px;
+    }
+
+    .hint-btn:hover {
+      background: #e8f0ff;
+    }
+
+    .hint {
+      display: none;
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 6px;
+      padding: 4px 6px;
+      border-left: 2px solid #007bff;
+      background: #f5f7ff;
+    }
+
+    .question-text {
+      margin-bottom: 4px;
+      font-weight: 600;
     }
 
     pre {
       background: #1e1e1e;
       color: #f8f8f2;
-      padding: 14px;
-      border-radius: 8px;
+      padding: 8px;
+      border-radius: 6px;
       overflow-x: auto;
+      font-size: 12px;
+      margin: 6px 0;
+    }
+
+    code {
+      font-family: "Fira Code", Menlo, Monaco, Consolas, "Courier New", monospace;
+      white-space: pre;
     }
 
     .answers {
       display: grid;
-      gap: 10px;
-      margin-top: 15px;
+      gap: 6px;
+      margin-top: 6px;
     }
 
     .answer-btn {
-      padding: 10px;
-      text-align: left;
-      border-radius: 8px;
       border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 6px 8px;
+      text-align: left;
       background: #fafafa;
       cursor: pointer;
-      transition: background 0.2s;
+      font-size: 13px;
+      transition: background 0.1s, border-color 0.1s;
     }
-    .answer-btn:hover { background: #f0f0f0; }
-    .answer-btn.correct { background: #d4edda; border-color: #28a745; }
-    .answer-btn.wrong { background: #f8d7da; border-color: #dc3545; }
-    .answer-btn.disabled { pointer-events: none; opacity: 0.8; }
 
-    .feedback { margin-top: 10px; font-weight: bold; min-height: 22px; }
-    .feedback.correct { color: #28a745; }
-    .feedback.wrong { color: #dc3545; }
+    .answer-btn:hover {
+      background: #f0f0f0;
+    }
 
-    .explanation { margin-top: 5px; color: #555; }
+    .answer-btn.correct {
+      background: #d4edda;
+      border-color: #28a745;
+    }
+
+    .answer-btn.wrong {
+      background: #f8d7da;
+      border-color: #dc3545;
+    }
+
+    .answer-btn.disabled {
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    .feedback {
+      margin-top: 6px;
+      min-height: 18px;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .feedback.correct {
+      color: #28a745;
+    }
+
+    .feedback.wrong {
+      color: #dc3545;
+    }
+
+    .explanation {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #555;
+    }
 
     .controls {
-      margin-top: 20px;
+      margin-top: 10px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
     }
 
     .btn {
-      background: #007bff;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 8px;
+      padding: 6px 10px;
+      border-radius: 6px;
       border: none;
       cursor: pointer;
-      transition: background 0.2s;
+      background: #007bff;
+      color: white;
+      font-size: 12px;
     }
-    .btn:hover { background: #005fcc; }
 
-    .progress { color: #666; }
+    .btn:hover {
+      background: #0062cc;
+    }
+
+    .progress {
+      color: #666;
+    }
+
   </style>
 </head>
-
 <body>
   <div class="app">
-    <h1>Roblox Script Quiz</h1>
+    <h1>Roblox Script Quiz – Einsteiger</h1>
     <div class="score" id="score">Punkte: 0</div>
 
-    <div id="questionText"></div>
-    <pre><code id="codeSnippet"></code></pre>
+    <div class="meta-row">
+      <div class="category" id="category"></div>
+      <button class="hint-btn" id="hintBtn">Hinweis anzeigen</button>
+    </div>
+    <div class="hint" id="hint"></div>
+
+    <div class="question-text" id="questionText"></div>
+
+    <div id="codeBlockWrapper">
+      <pre><code id="codeSnippet"></code></pre>
+    </div>
 
     <div class="answers" id="answers"></div>
 
@@ -116,420 +217,1550 @@
 
   <script>
     const questions = [
-      /* --- 50 einfache Quizfragen und Snippets --- */
+      /* ===================== VARIABLEN (10) ===================== */
       {
-        question: "Was passiert bei diesem Script?",
+        category: "Variablen",
+        question: "Was ist eine Variable in einem Script?",
+        snippet: "",
+        answers: [
+          "Ein gespeicherter Wert mit einem Namen.",
+          "Ein Teil der 3D-Welt.",
+          "Ein spezieller Knopf in Roblox Studio.",
+          "Ein Event für Berührungen."
+        ],
+        correctIndex: 0,
+        explanation: "Eine Variable speichert einen Wert, den man im Script verwenden kann.",
+        hint: "Denk an eine beschriftete Box, in der etwas drin liegt."
+      },
+      {
+        category: "Variablen",
+        question: "Was bedeutet das Wort 'local' vor einer Variable?",
+        snippet: `local zahl = 5`,
+        answers: [
+          "Die Variable ist überall im Internet sichtbar.",
+          "Die Variable gehört nur zu diesem Script-Bereich.",
+          "Die Variable wird automatisch gespeichert.",
+          "Die Variable wird rot angezeigt."
+        ],
+        correctIndex: 1,
+        explanation: "Eine lokale Variable gilt nur in dem Block oder Script, in dem sie geschrieben wird.",
+        hint: "local = nur hier gültig, nicht global."
+      },
+      {
+        category: "Variablen",
+        question: "Was wird hier ausgegeben?",
         snippet: `local zahl = 5
 print(zahl)`,
-        answers: ["Die Zahl 5 wird im Ausgabefenster angezeigt.", "Die Zahl 0 wird angezeigt.", "Es passiert nichts.", "Es kommt ein Fehler."],
-        correctIndex: 0,
-        explanation: "Die Variable hat den Wert 5."
-      },
-
-      {
-        question: "Was wird ausgegeben?",
-        snippet: `local a = 3
-local b = 4
-print(a + b)`,
-        answers: ["3", "4", "7", "12"],
-        correctIndex: 2,
-        explanation: "3 + 4 = 7."
-      },
-
-      {
-        question: "Was passiert mit dem Part?",
-        snippet: `local würfel = script.Parent
-würfel.Color = Color3.fromRGB(255, 0, 0)`,
-        answers: ["Er wird rot.", "Er wird grün.", "Er wird unsichtbar.", "Er bewegt sich."],
-        correctIndex: 0,
-        explanation: "Die RGB-Farbe ist rot."
-      },
-
-      {
-        question: "Wann ändert der Part die Farbe?",
-        snippet: `local würfel = script.Parent
-würfel.Touched:Connect(function()
-  würfel.Color = Color3.fromRGB(0, 255, 0)
-end)`,
-        answers: ["Beim Start.", "Beim Berühren.", "Beim Springen.", "Beim Drücken der Maus."],
+        answers: [
+          "0",
+          "5",
+          "10",
+          "Es passiert nichts."
+        ],
         correctIndex: 1,
-        explanation: "Touched reagiert auf Berührung."
+        explanation: "Die Variable zahl bekommt den Wert 5. Genau der wird ausgegeben.",
+        hint: "print zeigt den aktuellen Wert der Variable."
       },
-
       {
-        question: "Wie oft wird ausgegeben?",
-        snippet: `local x = 1
-while x <= 3 do
-  print(x)
-  x = x + 1
-end`,
-        answers: ["1 Mal", "2 Mal", "3 Mal", "Unendlich oft"],
+        category: "Variablen",
+        question: "Was passiert hier?",
+        snippet: `local x = 3
+local y = 4
+local summe = x + y
+print(summe)`,
+        answers: [
+          "Es wird 3 ausgegeben.",
+          "Es wird 4 ausgegeben.",
+          "Es wird 7 ausgegeben.",
+          "Es kommt ein Fehler."
+        ],
         correctIndex: 2,
-        explanation: "x = 1, 2, 3."
+        explanation: "3 + 4 = 7, also steht 7 im Ausgabefenster.",
+        hint: "Rechnung x + y wird zuerst gemacht, dann ausgegeben."
       },
-
       {
-        question: "Was passiert?",
-        snippet: `local würfel = script.Parent
-while true do
-  würfel.Position = würfel.Position + Vector3.new(0, 0.1, 0)
-  wait(0.1)
-end`,
-        answers: ["Er geht nach unten.", "Er geht nach oben.", "Er dreht sich.", "Er verschwindet."],
+        category: "Variablen",
+        question: "Welcher Name ist für eine Variable in Luau erlaubt?",
+        snippet: "",
+        answers: [
+          "2zahl",
+          "zahl_1",
+          "zahl-1",
+          "local"
+        ],
         correctIndex: 1,
-        explanation: "Die Y-Koordinate wird größer."
+        explanation: "Variablennamen dürfen nicht mit einer Zahl beginnen und keine Minuszeichen enthalten.",
+        hint: "Buchstabe am Anfang ist gut, Ziffer am Anfang nicht."
       },
-
       {
-        question: "Was macht das Script?",
-        snippet: `local zufall = math.random(1, 10)
-print(zufall)`,
-        answers: ["Immer 1", "Immer 10", "Zahl 1–10", "Fehler"],
-        correctIndex: 2,
-        explanation: "math.random(1,10) ergibt eine Zahl in diesem Bereich."
-      },
-
-      {
-        question: "Wann wird der Text angezeigt?",
-        snippet: `local eingaben = game:GetService("UserInputService")
-
-eingaben.InputBegan:Connect(function(taste)
-  if taste.KeyCode == Enum.KeyCode.Space then
-    print("Leertaste")
-  end
-end)`,
-        answers: ["Beim Start.", "Wenn man E drückt.", "Wenn man die Leertaste drückt.", "Gar nicht."],
-        correctIndex: 2,
-        explanation: "if-Bedingung prüft Space."
-      },
-
-      {
-        question: "Was passiert auf dem Bildschirm?",
-        snippet: `local spieler = game.Players.LocalPlayer
-local gui = Instance.new("ScreenGui", spieler.PlayerGui)
-local label = Instance.new("TextLabel", gui)
-label.Text = "Hallo"`,
-        answers: ["Ein Text erscheint.", "Spieler verschwindet.", "Fehler.", "Der Part färbt sich rot."],
-        correctIndex: 0,
-        explanation: "Ein TextLabel wird erzeugt."
-      },
-
-      {
-        question: "Wie verhält sich der Part?",
-        snippet: `local würfel = script.Parent
-while true do
-  würfel.Color = Color3.new(1,0,0)
-  wait(0.5)
-  würfel.Color = Color3.new(0,0,1)
-  wait(0.5)
-end`,
-        answers: ["Bleibt rot.", "Bleibt blau.", "Blinkt rot/blau.", "Verschwindet."],
-        correctIndex: 2,
-        explanation: "Die Farbe wird im Wechsel gesetzt."
-      },
-
-      /* 40 weitere einfache Fragen → */
-      {
-        question: "Was wird ausgegeben?",
-        snippet: `local z = 6
-if z > 5 then
-  print("größer")
-end`,
-        answers: ["kleiner", "größer", "gleich", "nichts"],
+        category: "Variablen",
+        question: "Was passiert hier mit 'punkte'?",
+        snippet: `local punkte = 0
+punkte = punkte + 10
+print(punkte)`,
+        answers: [
+          "punkte bleibt 0.",
+          "punkte wird 10.",
+          "punkte wird 20.",
+          "Es kommt ein Fehler."
+        ],
         correctIndex: 1,
-        explanation: "6 > 5."
+        explanation: "punkte wird von 0 auf 10 erhöht.",
+        hint: "Stell dir einen Zähler vor, der höher wird."
       },
-
       {
+        category: "Variablen",
+        question: "Was ist nach diesem Script der Wert von 'name'?",
+        snippet: `local name = "Alex"
+name = "Sam"`,
+        answers: [
+          "Alex",
+          "Sam",
+          "AlexSam",
+          "leer"
+        ],
+        correctIndex: 1,
+        explanation: "Die zweite Zuweisung überschreibt die erste, daher ist der Wert 'Sam'.",
+        hint: "Die letzte Zuweisung gilt."
+      },
+      {
+        category: "Variablen",
+        question: "Was bedeutet '..' bei Text?",
+        snippet: `local text = "Hallo"
+text = text .. " Welt"
+print(text)`,
+        answers: [
+          "Es löscht Text.",
+          "Es verbindet Texte.",
+          "Es macht Großbuchstaben.",
+          "Es macht Zeilenumbrüche."
+        ],
+        correctIndex: 1,
+        explanation: "Mit .. werden zwei Texte zu einem neuen Text verbunden.",
+        hint: "Denk an ein + für Texte."
+      },
+      {
+        category: "Variablen",
         question: "Was wird ausgegeben?",
-        snippet: `local z = 5
-if z == 5 then
-  print("fünf")
-end`,
-        answers: ["fünf", "vier", "sechs", "nichts"],
-        correctIndex: 0,
-        explanation: "z ist genau 5."
+        snippet: `local zahl = 10
+zahl = zahl - 3
+print(zahl)`,
+        answers: [
+          "3",
+          "7",
+          "10",
+          "13"
+        ],
+        correctIndex: 1,
+        explanation: "10 - 3 = 7.",
+        hint: "Erst die Rechnung im Kopf, dann an print denken."
       },
-
       {
-        question: "Wie groß ist punkt?",
-        snippet: `local punkt = 0
-punkt = punkt + 10
-punkt = punkt + 5
-print(punkt)`,
-        answers: ["0", "5", "10", "15"],
+        category: "Variablen",
+        question: "Was wird ausgegeben?",
+        snippet: `local a = 1
+local b = 2
+local c = 3
+print(a + b + c)`,
+        answers: [
+          "1",
+          "3",
+          "5",
+          "6"
+        ],
         correctIndex: 3,
-        explanation: "0 + 10 + 5."
+        explanation: "1 + 2 + 3 = 6.",
+        hint: "Rechne sie der Reihe nach zusammen."
       },
 
+      /* ===================== OPERATOR / AUSDRÜCKE (10) ===================== */
       {
-        question: "Was wird ausgegeben?",
+        category: "Operatoren & Ausdrücke",
+        question: "Was bedeutet der Operator '%' in Luau?",
+        snippet: `local rest = 7 % 3`,
+        answers: [
+          "Er gibt den Rest bei einer Division.",
+          "Er macht eine Prozentrechnung.",
+          "Er macht eine Verdopplung.",
+          "Er löscht Variablen."
+        ],
+        correctIndex: 0,
+        explanation: "Der Modulo-Operator % gibt den Rest einer Division zurück.",
+        hint: "7 geteilt durch 3 → 2 Rest 1."
+      },
+      {
+        category: "Operatoren & Ausdrücke",
+        question: "Was wird hier ausgegeben?",
+        snippet: `local rest = 7 % 3
+print(rest)`,
+        answers: [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        correctIndex: 1,
+        explanation: "7 geteilt durch 3 ergibt Rest 1.",
+        hint: "3 passt zwei Mal in 7, danach bleibt 1 übrig."
+      },
+      {
+        category: "Operatoren & Ausdrücke",
+        question: "Was macht der Ausdruck 'x * y'?",
         snippet: `local x = 2
-local y = 3
+local y = 4
 print(x * y)`,
-        answers: ["2", "3", "5", "6"],
-        correctIndex: 3,
-        explanation: "2×3."
+        answers: [
+          "Er addiert x und y.",
+          "Er subtrahiert x von y.",
+          "Er multipliziert x und y.",
+          "Er teilt x durch y."
+        ],
+        correctIndex: 2,
+        explanation: "* steht für Multiplikation.",
+        hint: "Malzeichen in der Programmierung."
       },
-
       {
+        category: "Operatoren & Ausdrücke",
+        question: "Welche Rechnung ist korrekt als Division geschrieben?",
+        snippet: "",
+        answers: [
+          "x * y",
+          "x + y",
+          "x / y",
+          "x - y"
+        ],
+        correctIndex: 2,
+        explanation: "/ ist das Division-Zeichen in Luau.",
+        hint: "Denke an Bruchstrich."
+      },
+      {
+        category: "Operatoren & Ausdrücke",
+        question: "Was bedeutet '==' in einer Bedingung?",
+        snippet: `if zahl == 5 then`,
+        answers: [
+          "größer als",
+          "kleiner als",
+          "gleich wie",
+          "ungefähr wie"
+        ],
+        correctIndex: 2,
+        explanation: "== prüft, ob zwei Werte genau gleich sind.",
+        hint: "Einfaches = ist Zuweisung, == ist Vergleich."
+      },
+      {
+        category: "Operatoren & Ausdrücke",
         question: "Was wird ausgegeben?",
         snippet: `local x = 10
 local y = 2
 print(x / y)`,
-        answers: ["5", "12", "2", "8"],
+        answers: [
+          "5",
+          "8",
+          "2",
+          "12"
+        ],
         correctIndex: 0,
-        explanation: "10 / 2 = 5."
+        explanation: "10 geteilt durch 2 ist 5.",
+        hint: "Teile 10 in zwei gleiche Teile."
       },
-
       {
-        question: "Was ist der Rest?",
-        snippet: `local r = 7 % 3
-print(r)`,
-        answers: ["0", "1", "2", "3"],
+        category: "Operatoren & Ausdrücke",
+        question: "Welcher Ausdruck ist eine Addition?",
+        snippet: "",
+        answers: [
+          "a - b",
+          "a * b",
+          "a / b",
+          "a + b"
+        ],
+        correctIndex: 3,
+        explanation: "+ steht für Addition.",
+        hint: "Wie im Matheunterricht."
+      },
+      {
+        category: "Operatoren & Ausdrücke",
+        question: "Was macht dieser Ausdruck?",
+        snippet: `local ergebnis = 2 + 3 * 4`,
+        answers: [
+          "20",
+          "14",
+          "24",
+          "5"
+        ],
         correctIndex: 1,
-        explanation: "7 % 3 = 1."
+        explanation: "Multiplikation zuerst: 3*4=12, dann 2+12=14.",
+        hint: "Punktrechnung vor Strichrechnung."
+      },
+      {
+        category: "Operatoren & Ausdrücke",
+        question: "Was bedeutet 'zahl >= 10'?",
+        snippet: `if zahl >= 10 then`,
+        answers: [
+          "zahl ist kleiner als 10",
+          "zahl ist größer oder gleich 10",
+          "zahl ist genau 10",
+          "zahl ist ungleich 10"
+        ],
+        correctIndex: 1,
+        explanation: ">= bedeutet größer oder gleich.",
+        hint: "Strich nach oben = größer."
+      },
+      {
+        category: "Operatoren & Ausdrücke",
+        question: "Was bedeutet 'zahl ~= 5'?",
+        snippet: `if zahl ~= 5 then`,
+        answers: [
+          "zahl ist gleich 5",
+          "zahl ist kleiner als 5",
+          "zahl ist größer als 5",
+          "zahl ist ungleich 5"
+        ],
+        correctIndex: 3,
+        explanation: "~= bedeutet 'nicht gleich'.",
+        hint: "Tilde ~ + = heißt ungleich."
       },
 
+      /* ===================== BEDINGUNGEN (10) ===================== */
       {
-        question: "Was passiert?",
-        snippet: `local text = "Hallo"
-print(text)`,
-        answers: ["Hallo", "text", "leer", "Fehler"],
-        correctIndex: 0,
-        explanation: "Die Variable wird ausgegeben."
+        category: "Bedingungen (if)",
+        question: "Wann wird der Text ausgegeben?",
+        snippet: `local zahl = 5
+if zahl == 5 then
+  print("fünf")
+end`,
+        answers: [
+          "Wenn zahl kleiner als 5 ist.",
+          "Wenn zahl größer als 5 ist.",
+          "Wenn zahl genau 5 ist.",
+          "Nie."
+        ],
+        correctIndex: 2,
+        explanation: "Die Bedingung ist nur bei genau 5 wahr.",
+        hint: "== prüft auf Gleichheit."
       },
-
       {
-        question: "Was bedeutet Anchored = true?",
-        snippet: `local würfel = script.Parent
-würfel.Anchored = true`,
-        answers: ["Part fällt nicht.", "Part verschwindet.", "Part wird blau.", "Part dreht sich."],
-        correctIndex: 0,
-        explanation: "Er ist fest."
-      },
-
-      {
-        question: "Was passiert?",
-        snippet: `local würfel = script.Parent
-würfel.Size = Vector3.new(5,5,5)`,
-        answers: ["Größer.", "Kleiner.", "Unsichtbar.", "Bewegt sich."],
-        correctIndex: 0,
-        explanation: "Größe wird gesetzt."
-      },
-
-      {
-        question: "Wann wird ausgegeben?",
+        category: "Bedingungen (if)",
+        question: "Wann wird 'klein' ausgegeben?",
         snippet: `local z = 2
 if z < 5 then
-  print("kleiner")
+  print("klein")
 end`,
-        answers: ["Bei z > 5.", "Bei z < 5.", "Nie.", "Beim Start."],
-        correctIndex: 1,
-        explanation: "2 < 5."
+        answers: [
+          "Wenn z größer als 5 ist.",
+          "Wenn z gleich 5 ist.",
+          "Wenn z kleiner als 5 ist.",
+          "Immer."
+        ],
+        correctIndex: 2,
+        explanation: "< bedeutet kleiner als.",
+        hint: "2 ist kleiner als 5."
       },
-
       {
-        question: "Was passiert?",
-        snippet: `local würfel = script.Parent
-würfel.Transparency = 0.5`,
-        answers: ["Ganz unsichtbar.", "Halb durchsichtig.", "Wird rot.", "Explodiert."],
-        correctIndex: 1,
-        explanation: "Wert 0.5 = halb durchsichtig."
-      },
-
-      {
-        question: "Wie oft wird 'Tick' ausgegeben?",
-        snippet: `while true do
-  print("Tick")
-  wait(2)
-end`,
-        answers: ["1 Mal", "Alle 2 Sekunden", "Alle 10 Sekunden", "Nie"],
-        correctIndex: 1,
-        explanation: "Endlosschleife."
-      },
-
-      {
-        question: "Was passiert?",
+        category: "Bedingungen (if)",
+        question: "Was passiert hier?",
         snippet: `local z = 8
 if z == 10 then
   print("zehn")
 end`,
-        answers: ["zehn", "8", "nichts", "Fehler"],
+        answers: [
+          "zehn wird ausgegeben.",
+          "8 wird ausgegeben.",
+          "Es passiert nichts.",
+          "Fehler."
+        ],
         correctIndex: 2,
-        explanation: "Bedingung ist falsch."
+        explanation: "Die Bedingung ist falsch, also wird nichts ausgeführt.",
+        hint: "8 ist nicht gleich 10."
       },
-
       {
-        question: "Was macht Neon?",
-        snippet: `local würfel = script.Parent
-würfel.Material = Enum.Material.Neon`,
-        answers: ["Er leuchtet.", "Er verschwindet.", "Er wackelt.", "Er fällt."],
+        category: "Bedingungen (if)",
+        question: "Welche Zeile ist eine richtige if-Bedingung?",
+        snippet: "",
+        answers: [
+          "if (zahl) then",
+          "if zahl 5 then",
+          "if zahl == 5 then",
+          "if == 5 then"
+        ],
+        correctIndex: 2,
+        explanation: "Vergleich mit == und then ist nötig.",
+        hint: "Muster: if BEDINGUNG then"
+      },
+      {
+        category: "Bedingungen (if)",
+        question: "Was passiert hier?",
+        snippet: `local x = 3
+if x >= 3 then
+  print("okay")
+end`,
+        answers: [
+          "Nichts.",
+          "Es wird 'okay' ausgegeben.",
+          "Es kommt ein Fehler.",
+          "Es wird 3 ausgegeben."
+        ],
+        correctIndex: 1,
+        explanation: "x ist 3, das ist größer oder gleich 3.",
+        hint: ">= enthält auch den Randwert."
+      },
+      {
+        category: "Bedingungen (if)",
+        question: "Was bedeutet 'else'?",
+        snippet: `if zahl > 0 then
+  print("positiv")
+else
+  print("nicht positiv")
+end`,
+        answers: [
+          "nochmal if",
+          "sonst / anderenfalls",
+          "Stopp",
+          "Wiederholung"
+        ],
+        correctIndex: 1,
+        explanation: "else wird ausgeführt, wenn die if-Bedingung falsch ist.",
+        hint: "Plan B, wenn Plan A nicht klappt."
+      },
+      {
+        category: "Bedingungen (if)",
+        question: "Was wird ausgegeben?",
+        snippet: `local zahl = 0
+if zahl > 0 then
+  print("größer 0")
+else
+  print("nicht größer 0")
+end`,
+        answers: [
+          "größer 0",
+          "nicht größer 0",
+          "0",
+          "Fehler"
+        ],
+        correctIndex: 1,
+        explanation: "0 ist nicht größer als 0, daher else-Zweig.",
+        hint: "Schau genau auf >, nicht auf >=."
+      },
+      {
+        category: "Bedingungen (if)",
+        question: "Was passiert mit 'gerade'?",
+        snippet: `local z = 4
+if z % 2 == 0 then
+  print("gerade")
+end`,
+        answers: [
+          "gerade wird ausgegeben.",
+          "ungerade wird ausgegeben.",
+          "4 wird ausgegeben.",
+          "Nichts."
+        ],
         correctIndex: 0,
-        explanation: "Neon leuchtet."
+        explanation: "4 hat Rest 0 bei Division durch 2.",
+        hint: "Zahlen mit Rest 0 bei /2 sind gerade."
+      },
+      {
+        category: "Bedingungen (if)",
+        question: "Was bedeutet 'if wahr == true then'?",
+        snippet: `local wahr = true
+if wahr == true then
+  print("ja")
+end`,
+        answers: [
+          "Prüft, ob wahr falsch ist.",
+          "Prüft, ob wahr wirklich true ist.",
+          "Macht die Variable kaputt.",
+          "Ist kein gültiger Code."
+        ],
+        correctIndex: 1,
+        explanation: "Es wird auf den Wert true geprüft.",
+        hint: "Boolean = Wahrheitswert."
+      },
+      {
+        category: "Bedingungen (if)",
+        question: "Was bedeutet 'if not bedingung then'?",
+        snippet: `if not fertig then
+  print("noch nicht fertig")
+end`,
+        answers: [
+          "Wenn fertig wahr ist.",
+          "Wenn fertig nicht wahr ist.",
+          "Immer.",
+          "Nie."
+        ],
+        correctIndex: 1,
+        explanation: "not dreht den Wahrheitswert um.",
+        hint: "not = Gegenteil."
       },
 
+      /* ===================== SCHLEIFEN (10) ===================== */
       {
-        question: "Was passiert bei Berührung?",
-        snippet: `local p = script.Parent
-p.Touched:Connect(function()
+        category: "Schleifen",
+        question: "Wie oft wird hier gezählt?",
+        snippet: `local i = 1
+while i <= 3 do
+  print(i)
+  i = i + 1
+end`,
+        answers: [
+          "1 Mal",
+          "2 Mal",
+          "3 Mal",
+          "Unendlich oft"
+        ],
+        correctIndex: 2,
+        explanation: "i = 1, 2, 3. Dann endet die Bedingung.",
+        hint: "Auf Startwert, Änderung und Bedingung achten."
+      },
+      {
+        category: "Schleifen",
+        question: "Welche Schleife läuft unendlich?",
+        snippet: "",
+        answers: [
+          "while i < 3 do ... end",
+          "for i = 1, 10 do ... end",
+          "while true do ... end",
+          "for i = 10, 1 do ... end"
+        ],
+        correctIndex: 2,
+        explanation: "while true ohne Ausstieg läuft endlos.",
+        hint: "true ist immer wahr."
+      },
+      {
+        category: "Schleifen",
+        question: "Welche Zahlen werden ausgegeben?",
+        snippet: `for i = 1, 3 do
+  print(i)
+end`,
+        answers: [
+          "1, 2",
+          "1, 2, 3",
+          "2, 3",
+          "3"
+        ],
+        correctIndex: 1,
+        explanation: "for i = 1, 3 zählt von 1 bis 3.",
+        hint: "Startwert 1, Endwert 3."
+      },
+      {
+        category: "Schleifen",
+        question: "Welche Zahlen werden ausgegeben?",
+        snippet: `for i = 2, 4 do
+  print(i)
+end`,
+        answers: [
+          "2, 3, 4",
+          "1, 2, 3, 4",
+          "3, 4",
+          "Nur 4"
+        ],
+        correctIndex: 0,
+        explanation: "Start 2, Ende 4.",
+        hint: "Die Werte von i nacheinander lesen."
+      },
+      {
+        category: "Schleifen",
+        question: "Was passiert hier?",
+        snippet: `local z = 3
+while z > 0 do
+  print(z)
+  z = z - 1
+end`,
+        answers: [
+          "Es wird unendlich gezählt.",
+          "Es wird 3, 2, 1 ausgegeben.",
+          "Es wird nichts ausgegeben.",
+          "Es kommt ein Fehler."
+        ],
+        correctIndex: 1,
+        explanation: "z wird heruntergezählt, bis 0 erreicht ist.",
+        hint: "Start 3, dann immer -1."
+      },
+      {
+        category: "Schleifen",
+        question: "Was macht 'wait(1)' in einer Schleife?",
+        snippet: `while true do
+  print("Tick")
+  wait(1)
+end`,
+        answers: [
+          "Es stoppt das Script.",
+          "Es wartet 1 Sekunde vor Script-Start.",
+          "Es macht 1 Sekunde Pause in der Schleife.",
+          "Es löscht die Variable."
+        ],
+        correctIndex: 2,
+        explanation: "wait wartet die angegebene Zeit.",
+        hint: "Denke an eine kleine Schlaf-Pause."
+      },
+      {
+        category: "Schleifen",
+        question: "Wie oft läuft diese Schleife maximal?",
+        snippet: `local a = 0
+while a < 5 do
+  a = a + 1
+  print(a)
+end`,
+        answers: [
+          "Gar nicht",
+          "1 Mal",
+          "5 Mal",
+          "Unendlich"
+        ],
+        correctIndex: 2,
+        explanation: "a wird von 1 bis 5 hochgezählt.",
+        hint: "Zähle, wie oft a kleiner als 5 ist."
+      },
+      {
+        category: "Schleifen",
+        question: "Was passiert hier?",
+        snippet: `for i = 1, 5 do
+  print("Hallo")
+end`,
+        answers: [
+          "„Hallo“ wird 1 Mal ausgegeben.",
+          "„Hallo“ wird 5 Mal ausgegeben.",
+          "„Hallo“ wird nie ausgegeben.",
+          "„Hallo“ wird unendlich oft ausgegeben."
+        ],
+        correctIndex: 1,
+        explanation: "Die Schleife läuft 5 Durchgänge.",
+        hint: "Von 1 bis 5 sind 5 Zahlen."
+      },
+      {
+        category: "Schleifen",
+        question: "Welche Schleife ist syntaktisch korrekt?",
+        snippet: "",
+        answers: [
+          "while do ... end",
+          "while (true) ...",
+          "while true do ... end",
+          "while true end do"
+        ],
+        correctIndex: 2,
+        explanation: "In Luau: while BEDINGUNG do ... end.",
+        hint: "Reihenfolge: while – Bedingung – do – end."
+      },
+      {
+        category: "Schleifen",
+        question: "Was macht diese Schleife?",
+        snippet: `while true do
+  print("Läuft")
+end`,
+        answers: [
+          "Sie läuft einmal.",
+          "Sie läuft zweimal.",
+          "Sie läuft nie.",
+          "Sie läuft unendlich oft."
+        ],
+        correctIndex: 3,
+        explanation: "true ist immer wahr, ohne Ausstieg läuft sie endlos.",
+        hint: "Es fehlt ein Abbruch."
+      },
+
+      /* ===================== FUNKTIONEN (10) ===================== */
+      {
+        category: "Funktionen",
+        question: "Was ist eine Funktion?",
+        snippet: "",
+        answers: [
+          "Ein Wert wie eine Zahl.",
+          "Ein wiederverwendbarer Block von Code mit einem Namen.",
+          "Ein 3D-Objekt in der Welt.",
+          "Ein GUI-Element."
+        ],
+        correctIndex: 1,
+        explanation: "Funktionen fassen Befehle zusammen, die man mehrmals aufrufen kann.",
+        hint: "Wie ein Rezept, das man immer wieder nutzen kann."
+      },
+      {
+        category: "Funktionen",
+        question: "Welche Zeile definiert eine Funktion richtig?",
+        snippet: "",
+        answers: [
+          "function = machwas()",
+          "local function machwas() end",
+          "local machwas() function end",
+          "machwas function end"
+        ],
+        correctIndex: 1,
+        explanation: "Muster: local function Name() ... end.",
+        hint: "function kommt direkt vor dem Namen."
+      },
+      {
+        category: "Funktionen",
+        question: "Was passiert hier?",
+        snippet: `local function sagHallo()
+  print("Hallo")
+end
+
+sagHallo()`,
+        answers: [
+          "Es wird nichts ausgegeben.",
+          "Es wird „Hallo“ ausgegeben.",
+          "Es kommt ein Fehler.",
+          "Es wird „sagHallo“ ausgegeben."
+        ],
+        correctIndex: 1,
+        explanation: "Die Funktion wird definiert und dann aufgerufen.",
+        hint: "Definition plus Aufruf."
+      },
+      {
+        category: "Funktionen",
+        question: "Was bedeutet 'parameter' in einer Funktion?",
+        snippet: `local function zeigeZahl(zahl)
+  print(zahl)
+end`,
+        answers: [
+          "Ein Name der Funktion.",
+          "Eine Variable, die beim Aufruf einen Wert bekommt.",
+          "Ein Event.",
+          "Ein GUI-Objekt."
+        ],
+        correctIndex: 1,
+        explanation: "Parameter sind Platzhalter für Werte beim Aufruf.",
+        hint: "Wie eine leere Box, die beim Aufruf gefüllt wird."
+      },
+      {
+        category: "Funktionen",
+        question: "Was wird ausgegeben?",
+        snippet: `local function summe(a, b)
+  print(a + b)
+end
+
+summe(2, 3)`,
+        answers: [
+          "2",
+          "3",
+          "5",
+          "Fehler"
+        ],
+        correctIndex: 2,
+        explanation: "a=2, b=3, also Ausgabe 5.",
+        hint: "Ersetze a und b durch die Zahlen."
+      },
+      {
+        category: "Funktionen",
+        question: "Welche Zeile ruft eine Funktion 'startSpiel' auf?",
+        snippet: "",
+        answers: [
+          "function startSpiel",
+          "local startSpiel",
+          "startSpiel()",
+          "startSpiel"
+        ],
+        correctIndex: 2,
+        explanation: "Die runden Klammern bedeuten Funktionsaufruf.",
+        hint: "Name plus () = Aufruf."
+      },
+      {
+        category: "Funktionen",
+        question: "Was bedeutet 'return' in einer Funktion?",
+        snippet: `local function doppelt(x)
+  return x * 2
+end`,
+        answers: [
+          "Die Funktion stoppt und gibt einen Wert zurück.",
+          "Die Funktion startet neu.",
+          "Die Funktion wird gelöscht.",
+          "Es hat keine Bedeutung."
+        ],
+        correctIndex: 0,
+        explanation: "return gibt einen Wert an den Aufrufer zurück.",
+        hint: "Wie eine Antwort, die die Funktion zurückgibt."
+      },
+      {
+        category: "Funktionen",
+        question: "Was passiert hier?",
+        snippet: `local function info()
+  print("Info")
+end`,
+        answers: [
+          "„Info“ wird ausgegeben.",
+          "Nichts, weil die Funktion nicht aufgerufen wird.",
+          "Es kommt ein Fehler.",
+          "Das Spiel stoppt."
+        ],
+        correctIndex: 1,
+        explanation: "Funktionen laufen erst, wenn sie aufgerufen werden.",
+        hint: "Nur definieren reicht nicht."
+      },
+      {
+        category: "Funktionen",
+        question: "Welche Aussage ist richtig?",
+        snippet: "",
+        answers: [
+          "Funktionen kann man nur einmal benutzen.",
+          "Funktionen kann man mehrmals aufrufen.",
+          "Funktionen sind nur für GUI da.",
+          "Funktionen dürfen nichts ausgeben."
+        ],
+        correctIndex: 1,
+        explanation: "Der Vorteil von Funktionen ist Wiederverwendung.",
+        hint: "Ein Rezept kann man oft kochen."
+      },
+      {
+        category: "Funktionen",
+        question: "Was wird ausgegeben?",
+        snippet: `local function plusEins(x)
+  return x + 1
+end
+
+print( plusEins(4) )`,
+        answers: [
+          "1",
+          "4",
+          "5",
+          "Fehler"
+        ],
+        correctIndex: 2,
+        explanation: "4 + 1 = 5.",
+        hint: "Denke: plusEins(4) = 5."
+      },
+
+      /* ===================== EVENTS (10) ===================== */
+      {
+        category: "Events",
+        question: "Was ist ein Event in Roblox?",
+        snippet: "",
+        answers: [
+          "Ein 3D-Objekt.",
+          "Ein Zeitplan im Kalender.",
+          "Ein Auslöser, wenn etwas Bestimmtes passiert.",
+          "Ein GUI-Element."
+        ],
+        correctIndex: 2,
+        explanation: "Events reagieren auf Ereignisse, z. B. Berührung, Tastendruck.",
+        hint: "Wie ein Türgong, wenn jemand klingelt."
+      },
+      {
+        category: "Events",
+        question: "Wann wird die Funktion aufgerufen?",
+        snippet: `würfel.Touched:Connect(function()
   print("Berührt")
 end)`,
-        answers: ["Text erscheint.", "Part löst sich auf.", "Spiel stoppt.", "Fehler."],
-        correctIndex: 0,
-        explanation: "Touched löst print aus."
+        answers: [
+          "Beim Spielstart.",
+          "Wenn man speichert.",
+          "Wenn der Part berührt wird.",
+          "Nie."
+        ],
+        correctIndex: 2,
+        explanation: "Das Event Touched reagiert auf Berührungen.",
+        hint: "Name sagt schon 'Touched'."
       },
-
       {
-        question: "Was wird ausgegeben?",
-        snippet: `local farbe = Color3.fromRGB(0,0,255)
-print(farbe)`,
-        answers: ["RGB-Wert (blau)", "255", "Fehler", "Text 'blau'"],
-        correctIndex: 0,
-        explanation: "Color3 wird gezeigt."
-      },
-
-      {
-        question: "Was steht im Textfeld?",
-        snippet: `local t = "A"
-t = "B"
-print(t)`,
-        answers: ["A", "B", "AB", "Nichts"],
+        category: "Events",
+        question: "Welcher Service wird für Tasten benutzt?",
+        snippet: `local eingaben = game:GetService("UserInputService")`,
+        answers: [
+          "Workspace",
+          "UserInputService",
+          "Players",
+          "Lighting"
+        ],
         correctIndex: 1,
-        explanation: "Der zweite Wert überschreibt."
+        explanation: "UserInputService verwaltet Eingaben von Tastatur/Maus.",
+        hint: "Input = Eingabe."
+      },
+      {
+        category: "Events",
+        question: "Wann wird der Text ausgegeben?",
+        snippet: `eingaben.InputBegan:Connect(function(taste)
+  if taste.KeyCode == Enum.KeyCode.Space then
+    print("Leertaste")
+  end
+end)`,
+        answers: [
+          "Wenn irgendeine Taste gedrückt wird.",
+          "Wenn die Leertaste gedrückt wird.",
+          "Wenn das Spiel startet.",
+          "Wenn der Part berührt wird."
+        ],
+        correctIndex: 1,
+        explanation: "Die Bedingung prüft speziell auf Space.",
+        hint: "KeyCode.Space = Leertaste."
+      },
+      {
+        category: "Events",
+        question: "Was macht ':Connect'?",
+        snippet: `event:Connect(function() end)`,
+        answers: [
+          "Es löscht das Event.",
+          "Es verbindet eine Funktion mit einem Event.",
+          "Es startet das Spiel neu.",
+          "Es speichert Daten."
+        ],
+        correctIndex: 1,
+        explanation: "Connect sorgt dafür, dass die Funktion beim Event aufgerufen wird.",
+        hint: "Connect = verbinden."
+      },
+      {
+        category: "Events",
+        question: "Was wird im Code 'CharacterAdded' ausgelöst?",
+        snippet: `player.CharacterAdded:Connect(function()
+  print("Figur geladen")
+end)`,
+        answers: [
+          "Wenn das Spiel gespeichert wird.",
+          "Wenn der Spieler eine Taste drückt.",
+          "Wenn die Spielerfigur neu gespawnt wird.",
+          "Wenn das Licht angeht."
+        ],
+        correctIndex: 2,
+        explanation: "CharacterAdded reagiert, wenn eine Figur erzeugt wird.",
+        hint: "Added = hinzugefügt."
+      },
+      {
+        category: "Events",
+        question: "Welche Zeile ist ein korrektes Event-Listening?",
+        snippet: "",
+        answers: [
+          "Touched.Connect(function() end)",
+          "Touched:Connect(function() end)",
+          "Touched(function)Connect",
+          "Connect:Touched(function)"
+        ],
+        correctIndex: 1,
+        explanation: "In Luau wird :Connect verwendet.",
+        hint: "Doppelpunkt vor Connect."
+      },
+      {
+        category: "Events",
+        question: "Was ist 'MouseButton1Click'?",
+        snippet: `button.MouseButton1Click:Connect(function()
+  print("Klick")
+end)`,
+        answers: [
+          "Ein Tastatur-Event.",
+          "Ein Event für linken Mausklick auf ein GUI-Element.",
+          "Ein Fehler.",
+          "Ein Sound."
+        ],
+        correctIndex: 1,
+        explanation: "MouseButton1 ist die linke Maustaste.",
+        hint: "Button 1 = linke Maustaste."
+      },
+      {
+        category: "Events",
+        question: "Was passiert hier?",
+        snippet: `würfel.Touched:Connect(function(teil)
+  print("Berührt von:", teil.Name)
+end)`,
+        answers: [
+          "Es wird immer 'Berührt' ohne Info ausgegeben.",
+          "Es wird nie etwas ausgegeben.",
+          "Es wird der Name des berührenden Teils ausgegeben.",
+          "Der Part wird gelöscht."
+        ],
+        correctIndex: 2,
+        explanation: "Das Event übergibt das berührende Objekt als Parameter.",
+        hint: "Parameter teil enthält das andere Objekt."
+      },
+      {
+        category: "Events",
+        question: "Was bedeutet 'humanoid.Died:Connect(...)'?",
+        snippet: `humanoid.Died:Connect(function()
+  print("Spieler ist gestorben")
+end)`,
+        answers: [
+          "Wenn das Spiel startet.",
+          "Wenn der Spieler springt.",
+          "Wenn der Humanoid stirbt.",
+          "Wenn der Spieler eine Taste drückt."
+        ],
+        correctIndex: 2,
+        explanation: "Died-Event feuert, wenn der Humanoid keine Lebenspunkte mehr hat.",
+        hint: "Died = gestorben."
       },
 
+      /* ===================== PARTS & EIGENSCHAFTEN (10) ===================== */
       {
-        question: "Was wird ausgegeben?",
-        snippet: `local a=1 local b=2 local c=3
-print(a+b+c)`,
-        answers: ["1","3","5","6"],
-        correctIndex: 3,
-        explanation: "1+2+3=6."
+        category: "Parts & Eigenschaften",
+        question: "Was ist ein Part in Roblox?",
+        snippet: "",
+        answers: [
+          "Ein Script.",
+          "Ein 3D-Baustein in der Welt.",
+          "Ein Spieler.",
+          "Ein Sound."
+        ],
+        correctIndex: 1,
+        explanation: "Parts sind grundlegende 3D-Bauteile.",
+        hint: "Ziegel, Würfel, Kugeln etc."
       },
-
       {
+        category: "Parts & Eigenschaften",
+        question: "Was macht Anchored = true?",
+        snippet: `local würfel = script.Parent
+würfel.Anchored = true`,
+        answers: [
+          "Der Part fällt nicht und bleibt fest.",
+          "Der Part dreht sich.",
+          "Der Part wird unsichtbar.",
+          "Der Part explodiert."
+        ],
+        correctIndex: 0,
+        explanation: "Anchored verhindert Bewegung durch Physik.",
+        hint: "Verankert = festgeklebt."
+      },
+      {
+        category: "Parts & Eigenschaften",
         question: "Was macht CanCollide = false?",
         snippet: `local p = script.Parent
 p.CanCollide = false`,
-        answers: ["Durchgehen möglich.", "Unsichtbar.", "Bewegt sich.", "Fällt schneller."],
+        answers: [
+          "Der Part ist unzerstörbar.",
+          "Der Part ist unsichtbar.",
+          "Man kann durch den Part hindurchlaufen.",
+          "Der Part ist anklickbar."
+        ],
+        correctIndex: 2,
+        explanation: "Ohne Kollision kann man hindurchgehen.",
+        hint: "Keine Kollision = kein Zusammenstoßen."
+      },
+      {
+        category: "Parts & Eigenschaften",
+        question: "Was bedeutet Transparency = 0.5?",
+        snippet: `local p = script.Parent
+p.Transparency = 0.5`,
+        answers: [
+          "Ganz sichtbar.",
+          "Ganz unsichtbar.",
+          "Halb durchsichtig.",
+          "Explodiert."
+        ],
+        correctIndex: 2,
+        explanation: "0 = sichtbar, 1 = unsichtbar; 0.5 ist dazwischen.",
+        hint: "0…1 Skala."
+      },
+      {
+        category: "Parts & Eigenschaften",
+        question: "Was macht dieses Script?",
+        snippet: `local p = script.Parent
+p.Size = Vector3.new(5, 5, 5)`,
+        answers: [
+          "Der Part wird größer (5x5x5).",
+          "Der Part wird kleiner.",
+          "Der Part wird rot.",
+          "Der Part verschwindet."
+        ],
         correctIndex: 0,
-        explanation: "Keine Kollision."
+        explanation: "Die Größe wird fest auf 5 gesetzt.",
+        hint: "Size legt Breite, Höhe, Tiefe fest."
+      },
+      {
+        category: "Parts & Eigenschaften",
+        question: "Was macht dieses Script?",
+        snippet: `local p = script.Parent
+p.Color = Color3.fromRGB(255, 0, 0)`,
+        answers: [
+          "Part wird rot.",
+          "Part wird grün.",
+          "Part wird blau.",
+          "Part wird schwarz."
+        ],
+        correctIndex: 0,
+        explanation: "RGB 255,0,0 ist Rot.",
+        hint: "R = Rot, G = Grün, B = Blau."
+      },
+      {
+        category: "Parts & Eigenschaften",
+        question: "Was macht BrickColor.new(\"Bright green\")?",
+        snippet: `p.BrickColor = BrickColor.new("Bright green")`,
+        answers: [
+          "Setzt eine vordefinierte grüne Farbe.",
+          "Löscht den Part.",
+          "Verankert den Part.",
+          "Macht ihn durchsichtig."
+        ],
+        correctIndex: 0,
+        explanation: "BrickColor nutzt vordefinierte Farbnamen.",
+        hint: "Bright green = hellgrün."
+      },
+      {
+        category: "Parts & Eigenschaften",
+        question: "Welches Teil kannst du NICHT direkt mit Instance.new erzeugen?",
+        snippet: "",
+        answers: [
+          "Part",
+          "ScreenGui",
+          "TextLabel",
+          "Workspace"
+        ],
+        correctIndex: 3,
+        explanation: "Workspace ist ein Service und schon vorhanden.",
+        hint: "Workspace gibt es nur einmal als Umgebung."
+      },
+      {
+        category: "Parts & Eigenschaften",
+        question: "Was passiert?",
+        snippet: `local p = script.Parent
+p.Material = Enum.Material.Neon`,
+        answers: [
+          "Part leuchtet wie Neon.",
+          "Part verschwindet.",
+          "Part wird kleiner.",
+          "Part explodiert."
+        ],
+        correctIndex: 0,
+        explanation: "Neon lässt Parts leuchten.",
+        hint: "Material beeinflusst Aussehen."
+      },
+      {
+        category: "Parts & Eigenschaften",
+        question: "Was passiert?",
+        snippet: `local p = script.Parent
+p.Position = p.Position + Vector3.new(0, 1, 0)`,
+        answers: [
+          "Part bewegt sich etwas nach oben.",
+          "Part bewegt sich etwas nach unten.",
+          "Part dreht sich.",
+          "Part ändert die Farbe."
+        ],
+        correctIndex: 0,
+        explanation: "Y-Koordinate wird erhöht.",
+        hint: "Vector3 beschreibt Verschiebung in 3D."
       },
 
+      /* ===================== GUI (10) ===================== */
       {
-        question: "Welche Zahlen werden ausgegeben?",
-        snippet: `for i = 1,3 do print(i) end`,
-        answers: ["1,2,3", "1,2", "2,3", "3"],
-        correctIndex: 0,
-        explanation: "i läuft von 1 bis 3."
-      },
-
-      {
-        question: "Welche Zahlen werden ausgegeben?",
-        snippet: `for i = 2,4 do print(i) end`,
-        answers: ["2,3,4","1,2,3","3,4","Keine"],
-        correctIndex: 0,
-        explanation: "Start 2, Ende 4."
-      },
-
-      {
-        question: "Welche Zahlen?",
-        snippet: `local z=3
-while z>0 do
- print(z)
- z=z-1
-end`,
-        answers: ["1,2,3","3,2,1","nur 3","unendlich"],
+        category: "GUI",
+        question: "Was ist eine ScreenGui?",
+        snippet: "",
+        answers: [
+          "Ein 3D-Objekt.",
+          "Ein Behälter für GUI-Elemente auf dem Bildschirm.",
+          "Ein Soundeffekt.",
+          "Ein Script-Typ."
+        ],
         correctIndex: 1,
-        explanation: "Runterzählen."
+        explanation: "ScreenGui ist ein Container für 2D-Oberflächen.",
+        hint: "Alles, was man im Bildschirm-Overlay sieht."
       },
-
       {
-        question: "Was wird angezeigt?",
-        snippet: `local w = true
-print(w)`,
-        answers: ["true","false","1","0"],
+        category: "GUI",
+        question: "Was macht dieses Script?",
+        snippet: `local spieler = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui", spieler.PlayerGui)
+local label = Instance.new("TextLabel", gui)
+label.Text = "Hallo"`,
+        answers: [
+          "Es zeigt 'Hallo' auf dem Bildschirm.",
+          "Es löscht den Spieler.",
+          "Es färbt einen Part rot.",
+          "Es stoppt das Spiel."
+        ],
         correctIndex: 0,
-        explanation: "Wert true."
+        explanation: "Ein TextLabel mit Text 'Hallo' wird erstellt.",
+        hint: "PlayerGui zeigt Dinge nur für diesen Spieler."
       },
-
       {
-        question: "Was passiert?",
-        snippet: `local würfel = script.Parent
-würfel.BrickColor = BrickColor.new("Bright green")`,
-        answers: ["Er wird hellgrün.","Er explodiert.","Er fliegt.","Nichts."],
+        category: "GUI",
+        question: "Was ist ein TextLabel?",
+        snippet: "",
+        answers: [
+          "Ein Textfeld auf der GUI.",
+          "Ein 3D-Part.",
+          "Ein Sound.",
+          "Eine Schleife."
+        ],
         correctIndex: 0,
-        explanation: "Farbe setzt sich."
+        explanation: "TextLabel zeigt Text an.",
+        hint: "Label = Beschriftung."
       },
-
       {
-        question: "Was wird ausgegeben?",
-        snippet: `local t = "Hallo"
-t = t .. " Welt"
-print(t)`,
-        answers: ["Hallo","Welt","Hallo Welt","Fehler"],
+        category: "GUI",
+        question: "Was macht diese Zeile?",
+        snippet: `label.Text = "Start"`,
+        answers: [
+          "Sie erstellt ein neues Label.",
+          "Sie setzt den Text eines Labels.",
+          "Sie löscht das Label.",
+          "Sie bewegt das Label."
+        ],
+        correctIndex: 1,
+        explanation: "Die Text-Eigenschaft wird geändert.",
+        hint: "Name.Eigenschaft = Wert."
+      },
+      {
+        category: "GUI",
+        question: "Was macht Size beim TextLabel?",
+        snippet: `label.Size = UDim2.new(0, 200, 0, 50)`,
+        answers: [
+          "Es legt die Größe des Texts in Pixeln fest.",
+          "Es ändert die Schriftart.",
+          "Es färbt den Hintergrund.",
+          "Es fügt einen Sound hinzu."
+        ],
+        correctIndex: 0,
+        explanation: "UDim2 legt Breite und Höhe fest.",
+        hint: "200 Pixel breit, 50 Pixel hoch."
+      },
+      {
+        category: "GUI",
+        question: "Was bedeutet Position?",
+        snippet: `label.Position = UDim2.new(0.5, -100, 0, 20)`,
+        answers: [
+          "Zufällige Position.",
+          "Position auf dem Bildschirm.",
+          "Position im 3D-Raum.",
+          "Audio-Position."
+        ],
+        correctIndex: 1,
+        explanation: "Position bezieht sich auf die Bildschirmkoordinaten.",
+        hint: "UDim2 für GUI, Vector3 für 3D."
+      },
+      {
+        category: "GUI",
+        question: "Was macht dieses Script mit dem Label?",
+        snippet: `label.Visible = false`,
+        answers: [
+          "Label wird unsichtbar.",
+          "Label wird größer.",
+          "Label wird gelöscht.",
+          "Label wird rot."
+        ],
+        correctIndex: 0,
+        explanation: "Visible false blendet es aus.",
+        hint: "Visible = sichtbar."
+      },
+      {
+        category: "GUI",
+        question: "Was ist ein TextButton?",
+        snippet: "",
+        answers: [
+          "Ein Knopf mit Text, den man anklicken kann.",
+          "Ein 3D-Würfel.",
+          "Ein Audio-Objekt.",
+          "Ein Skript-Typ."
+        ],
+        correctIndex: 0,
+        explanation: "TextButton ist ein klickbarer Button.",
+        hint: "Button = Knopf."
+      },
+      {
+        category: "GUI",
+        question: "Was macht dieses Event?",
+        snippet: `button.MouseButton1Click:Connect(function()
+  print("Klick")
+end)`,
+        answers: [
+          "Reagiert auf linken Mausklick auf den Button.",
+          "Reagiert auf Leertaste.",
+          "Reagiert auf Berührung eines Parts.",
+          "Reagiert beim Spielstart."
+        ],
+        correctIndex: 0,
+        explanation: "MouseButton1 ist linke Maustaste auf GUI.",
+        hint: "Nur auf GUI-Buttons."
+      },
+      {
+        category: "GUI",
+        question: "Wohin gehört eine ScreenGui normalerweise?",
+        snippet: "",
+        answers: [
+          "In Workspace",
+          "In ReplicatedStorage",
+          "In PlayerGui eines Spielers",
+          "In ServerStorage"
+        ],
         correctIndex: 2,
-        explanation: "Text verknüpft."
+        explanation: "PlayerGui zeigt GUI nur diesem Spieler.",
+        hint: "PlayerGui = GUI für Spieler."
       },
 
+      /* ===================== SPIELER & INPUT (10) ===================== */
       {
-        question: "Was passiert?",
-        snippet: `print("Start")
-wait(1)
-print("Ende")`,
-        answers: ["Nur Start.","Nur Ende.","Start → Pause → Ende.","Ende zuerst."],
-        correctIndex: 2,
-        explanation: "1 Sekunde Pause."
+        category: "Spieler & Input",
+        question: "Wie bekommt man den lokalen Spieler im LocalScript?",
+        snippet: "",
+        answers: [
+          "game.Players.Player",
+          "game.Players.LocalPlayer",
+          "game.LocalPlayer",
+          "game.Player.Local"
+        ],
+        correctIndex: 1,
+        explanation: "LocalPlayer ist der aktuell spielende Spieler.",
+        hint: "Nur in LocalScripts verfügbar."
       },
-
       {
-        question: "Was wird ausgegeben?",
-        snippet: `local z = 4
-if z % 2 == 0 then print("gerade") end`,
-        answers: ["gerade","ungerade","4","nichts"],
+        category: "Spieler & Input",
+        question: "Was macht dieser Code?",
+        snippet: `local eingaben = game:GetService("UserInputService")`,
+        answers: [
+          "Er holt den Service für Benutzereingaben.",
+          "Er holt den Soundservice.",
+          "Er erstellt einen neuen Spieler.",
+          "Er erstellt ein neues Script."
+        ],
         correctIndex: 0,
-        explanation: "4 ist gerade."
+        explanation: "UserInputService verwaltet Tastatur/Maus/Controller.",
+        hint: "GetService holt einen Dienst von Roblox."
+      },
+      {
+        category: "Spieler & Input",
+        question: "Wann wird 'Leertaste' ausgegeben?",
+        snippet: `eingaben.InputBegan:Connect(function(taste)
+  if taste.KeyCode == Enum.KeyCode.Space then
+    print("Leertaste")
+  end
+end)`,
+        answers: [
+          "Beim Start.",
+          "Beim Klick mit der Maus.",
+          "Beim Drücken der Leertaste.",
+          "Beim Ende des Spiels."
+        ],
+        correctIndex: 2,
+        explanation: "KeyCode.Space steht für Leertaste.",
+        hint: "InputBegan = Eingabe beginnt."
+      },
+      {
+        category: "Spieler & Input",
+        question: "Wann wird 'E' ausgegeben?",
+        snippet: `if taste.KeyCode == Enum.KeyCode.E then
+  print("E")
+end`,
+        answers: [
+          "Wenn ESC gedrückt wird.",
+          "Wenn E gedrückt wird.",
+          "Wenn Enter gedrückt wird.",
+          "Wenn die Leertaste gedrückt wird."
+        ],
+        correctIndex: 1,
+        explanation: "KeyCode.E steht für die E-Taste.",
+        hint: "KeyCode gibt an, welche Taste."
+      },
+      {
+        category: "Spieler & Input",
+        question: "Was macht 'player.Character'?",
+        snippet: "",
+        answers: [
+          "Es ist die 3D-Figur des Spielers.",
+          "Es ist der Name des Spielers.",
+          "Es ist die GUI des Spielers.",
+          "Es ist ein Sound."
+        ],
+        correctIndex: 0,
+        explanation: "Character ist das Model mit Humanoid.",
+        hint: "Die Figur, die in der Welt läuft."
+      },
+      {
+        category: "Spieler & Input",
+        question: "Was bedeutet 'CharacterAdded'?",
+        snippet: "",
+        answers: [
+          "Spieler hat das Spiel verlassen.",
+          "Spielerfigur wurde neu geladen.",
+          "Spieler hat eine Taste gedrückt.",
+          "Spieler hat eine Nachricht geschrieben."
+        ],
+        correctIndex: 1,
+        explanation: "Event, wenn ein neuer Character gespawnt wird.",
+        hint: "Added = hinzugefügt."
+      },
+      {
+        category: "Spieler & Input",
+        question: "Was macht dieser Code?",
+        snippet: `local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()`,
+        answers: [
+          "Er wartet, bis eine Spielerfigur verfügbar ist.",
+          "Er löscht die Spielerfigur.",
+          "Er dupliziert die Spielerfigur.",
+          "Er speichert den Spieler in Workspace."
+        ],
+        correctIndex: 0,
+        explanation: "Entweder vorhandene Figur oder warten, bis eine kommt.",
+        hint: "or ist hier eine Art 'sonst warte'."
+      },
+      {
+        category: "Spieler & Input",
+        question: "Was ist ein Humanoid?",
+        snippet: "",
+        answers: [
+          "Teil des GUI.",
+          "Der Körpertyp eines NPC oder Spielers mit Lebenspunkten.",
+          "Ein Script.",
+          "Ein Soundeffekt."
+        ],
+        correctIndex: 1,
+        explanation: "Humanoid steuert Gesundheit, Bewegung etc.",
+        hint: "Im Charakter-Modell zu finden."
+      },
+      {
+        category: "Spieler & Input",
+        question: "Was macht dieser Code?",
+        snippet: `local humanoid = character:WaitForChild("Humanoid")`,
+        answers: [
+          "Er erstellt einen neuen Humanoid.",
+          "Er wartet, bis der Humanoid im Charakter vorhanden ist.",
+          "Er löscht den Humanoid.",
+          "Er startet eine Schleife."
+        ],
+        correctIndex: 1,
+        explanation: "WaitForChild wartet auf das Unterobjekt.",
+        hint: "Nützlich beim Laden der Figur."
+      },
+      {
+        category: "Spieler & Input",
+        question: "Was macht dieser Code?",
+        snippet: `humanoid.Jump = true`,
+        answers: [
+          "Figur bewegt sich nach vorne.",
+          "Figur wird unsichtbar.",
+          "Figur springt.",
+          "Figur stirbt."
+        ],
+        correctIndex: 2,
+        explanation: "Jump true löst einen Sprung aus.",
+        hint: "Jump = springen."
       },
 
+      /* ===================== ZUFALL & GEMISCHTES (10) ===================== */
       {
-        question: "Welche Zahl wird ausgegeben?",
-        snippet: `local z = math.random(5,5)
+        category: "Zufall & Gemischt",
+        question: "Was macht math.random(1, 10)?",
+        snippet: "",
+        answers: [
+          "Immer 1.",
+          "Immer 10.",
+          "Eine zufällige Zahl zwischen 1 und 10.",
+          "Eine Zahl zwischen 0 und 1."
+        ],
+        correctIndex: 2,
+        explanation: "Zufallszahl im Bereich 1–10.",
+        hint: "Beide Grenzen inklusive."
+      },
+      {
+        category: "Zufall & Gemischt",
+        question: "Was wird hier sicher ausgegeben?",
+        snippet: `local z = math.random(5, 5)
 print(z)`,
-        answers: ["5","1","10","zufällig 5 oder 6"],
+        answers: [
+          "Immer 5.",
+          "Immer 0.",
+          "Immer 10.",
+          "Zufällig 5 oder 6."
+        ],
         correctIndex: 0,
-        explanation: "Bereich 5–5 = immer 5."
+        explanation: "Bereich 5–5 ist immer 5.",
+        hint: "Unter- und Obergrenze gleich."
       },
-
       {
-        question: "Was passiert nach 1s?",
-        snippet: `local w = script.Parent
-wait(1)
-w.Color = Color3.fromRGB(255,255,0)`,
-        answers: ["Sofort gelb.","Nach 1s gelb.","Unsichtbar.","Fehler."],
+        category: "Zufall & Gemischt",
+        question: "Was ist der Zweck von print?",
+        snippet: "",
+        answers: [
+          "Es ändert Farben.",
+          "Es zeigt Text und Werte im Ausgabefenster.",
+          "Es speichert das Spiel.",
+          "Es bewegt die Figur."
+        ],
         correctIndex: 1,
-        explanation: "Gelb nach Pause."
+        explanation: "print ist ein Debug-Werkzeug.",
+        hint: "Hilft beim Kontrollieren des Codes."
       },
-
       {
-        question: "Was passiert?",
-        snippet: `local z=10
-if z>=10 then print("mindestens 10") end`,
-        answers: ["nichts","mindestens 10","Fehler","10"],
-        correctIndex: 1,
-        explanation: "Bedingung stimmt."
-      },
-
-      {
-        question: "Wie oft läuft die Schleife?",
-        snippet: `local a=0
-while a<5 do
- a=a+1
- print(a)
-end`,
-        answers: ["0","1","5","unendlich"],
+        category: "Zufall & Gemischt",
+        question: "Was bedeutet 'true' und 'false'?",
+        snippet: "",
+        answers: [
+          "Zufallswerte.",
+          "Texte.",
+          "Wahrheitswerte (Boolean).",
+          "Farben."
+        ],
         correctIndex: 2,
-        explanation: "1–5."
+        explanation: "Boolean-Werte sind nur true oder false.",
+        hint: "Benutzt in Bedingungen."
+      },
+      {
+        category: "Zufall & Gemischt",
+        question: "Was macht dieses Script alle 2 Sekunden?",
+        snippet: `while true do
+  print("Tick")
+  wait(2)
+end`,
+        answers: [
+          "Gibt einmal 'Tick' aus.",
+          "Gibt unendlich 'Tick' alle 2 Sekunden aus.",
+          "Gibt jeden Frame 'Tick' aus.",
+          "Gibt nie etwas aus."
+        ],
+        correctIndex: 1,
+        explanation: "Endlos-Schleife mit Pause.",
+        hint: "Ende der Schleife ist nie erreicht."
+      },
+      {
+        category: "Zufall & Gemischt",
+        question: "Was bedeutet '--' in Luau?",
+        snippet: `-- Das ist ein Kommentar`,
+        answers: [
+          "Es ist eine Schleife.",
+          "Es ist ein Fehler.",
+          "Es kennzeichnet einen Kommentar.",
+          "Es bedeutet Division."
+        ],
+        correctIndex: 2,
+        explanation: "Alles dahinter wird vom Interpreter ignoriert.",
+        hint: "Kommentare sind nur für Menschen."
+      },
+      {
+        category: "Zufall & Gemischt",
+        question: "Wann läuft ein Script vom Typ LocalScript?",
+        snippet: "",
+        answers: [
+          "Auf dem Server für alle.",
+          "Nur im Client (beim Spieler).",
+          "Gar nicht.",
+          "Nur in Workspace."
+        ],
+        correctIndex: 1,
+        explanation: "LocalScripts laufen im Client.",
+        hint: "z. B. in StarterPlayerScripts, StarterGui."
+      },
+      {
+        category: "Zufall & Gemischt",
+        question: "Wo läuft ein normales Script (ServerScript)?",
+        snippet: "",
+        answers: [
+          "Im Browser.",
+          "Auf dem Server.",
+          "Nur im PlayerGui.",
+          "Gar nicht."
+        ],
+        correctIndex: 1,
+        explanation: "ServerScripts laufen auf dem Server.",
+        hint: "Z. B. in ServerScriptService."
+      },
+      {
+        category: "Zufall & Gemischt",
+        question: "Welcher Code bewegt einen Part leicht nach oben?",
+        snippet: "",
+        answers: [
+          `p.Position = p.Position + Vector3.new(0, 1, 0)`,
+          `p.Position = p.Position + Vector3.new(0, -1, 0)`,
+          `p.Position = p.Position + Vector3.new(1, 0, 0)`,
+          `p.Position = p.Position + Vector3.new(0, 0, 0)`
+        ],
+        correctIndex: 0,
+        explanation: "Y-Achse nach oben ist positiv.",
+        hint: "Vector3(x,y,z): y ist Höhe."
+      },
+      {
+        category: "Zufall & Gemischt",
+        question: "Was macht 'wait(0.1)'?",
+        snippet: "",
+        answers: [
+          "Wartet 0.1 Sekunden.",
+          "Wartet 10 Sekunden.",
+          "Wartet 1 Sekunde.",
+          "Startet das Spiel neu."
+        ],
+        correctIndex: 0,
+        explanation: "Zehntel Sekunde Pause.",
+        hint: "0.1 = eine Zehntelsekunde."
       }
     ];
 
@@ -538,22 +1769,44 @@ end`,
     let answered = false;
 
     const codeSnippetEl = document.getElementById("codeSnippet");
+    const codeWrapperEl = document.getElementById("codeBlockWrapper");
     const questionTextEl = document.getElementById("questionText");
     const answersEl = document.getElementById("answers");
     const feedbackEl = document.getElementById("feedback");
     const explanationEl = document.getElementById("explanation");
     const scoreEl = document.getElementById("score");
     const progressEl = document.getElementById("progress");
+    const categoryEl = document.getElementById("category");
+    const hintEl = document.getElementById("hint");
+    const hintBtn = document.getElementById("hintBtn");
     const nextBtn = document.getElementById("nextBtn");
+
+    let hintVisible = false;
 
     function renderQuestion() {
       const q = questions[currentIndex];
+      categoryEl.textContent = "Thema: " + q.category;
       questionTextEl.textContent = q.question;
-      codeSnippetEl.textContent = q.snippet;
+
+      if (q.snippet && q.snippet.trim() !== "") {
+        codeWrapperEl.style.display = "block";
+        codeSnippetEl.textContent = q.snippet;
+      } else {
+        codeWrapperEl.style.display = "none";
+        codeSnippetEl.textContent = "";
+      }
+
       answersEl.innerHTML = "";
       feedbackEl.textContent = "";
+      feedbackEl.className = "feedback";
       explanationEl.textContent = "";
       answered = false;
+
+      hintVisible = false;
+      hintEl.style.display = "none";
+      hintEl.textContent = q.hint || "";
+      hintBtn.textContent = "Hinweis anzeigen";
+      hintBtn.disabled = !q.hint;
 
       q.answers.forEach((ans, i) => {
         const btn = document.createElement("button");
@@ -566,16 +1819,18 @@ end`,
       progressEl.textContent = `Frage ${currentIndex + 1} von ${questions.length}`;
     }
 
-    function handleAnswer(selected, btn) {
+    function handleAnswer(selected, clickedBtn) {
       if (answered) return;
       answered = true;
 
       const q = questions[currentIndex];
-      const all = answersEl.querySelectorAll(".answer-btn");
+      const buttons = answersEl.querySelectorAll(".answer-btn");
 
-      all.forEach((b, i) => {
-        b.classList.add("disabled");
-        if (i === q.correctIndex) b.classList.add("correct");
+      buttons.forEach((btn, i) => {
+        btn.classList.add("disabled");
+        if (i === q.correctIndex) {
+          btn.classList.add("correct");
+        }
       });
 
       if (selected === q.correctIndex) {
@@ -586,11 +1841,23 @@ end`,
       } else {
         feedbackEl.textContent = "Falsch.";
         feedbackEl.classList.add("wrong");
-        btn.classList.add("wrong");
+        clickedBtn.classList.add("wrong");
+        if (hintEl.textContent) {
+          hintVisible = true;
+          hintEl.style.display = "block";
+          hintBtn.textContent = "Hinweis ausblenden";
+        }
       }
 
       explanationEl.textContent = q.explanation;
     }
+
+    hintBtn.onclick = () => {
+      if (!hintEl.textContent) return;
+      hintVisible = !hintVisible;
+      hintEl.style.display = hintVisible ? "block" : "none";
+      hintBtn.textContent = hintVisible ? "Hinweis ausblenden" : "Hinweis anzeigen";
+    };
 
     nextBtn.onclick = () => {
       currentIndex++;

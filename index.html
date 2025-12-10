@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Roblox Script Quiz – 100 Einsteigerfragen</title>
+  <title>Roblox Script Quiz – Einsteiger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -217,6 +217,288 @@
 
   <script>
     const questions = [
+      /* ===================== LEVEL 1 – GRUNDLAGEN & SICHERHEIT (20) ===================== */
+      {
+        category: "Level 1 – Grundlagen",
+        question: "Was ist ein Script in Roblox?",
+        snippet: "",
+        answers: [
+          "Ein Text, der dem Computer sagt, was er tun soll.",
+          "Ein Bild im Spiel.",
+          "Ein fertiges Level.",
+          "Ein Soundeffekt."
+        ],
+        correctIndex: 0,
+        explanation: "Ein Script ist eine Liste von Befehlen für den Computer.",
+        hint: "Denk an eine Anleitung oder ein Kochrezept für den Computer."
+      },
+      {
+        category: "Level 1 – Grundlagen",
+        question: "Welche davon ist eine Variable?",
+        snippet: "local anzahl = 5",
+        answers: [
+          "local",
+          "anzahl",
+          "5",
+          "="
+        ],
+        correctIndex: 1,
+        explanation: "anzahl ist der Name der Variable, in der 5 gespeichert wird.",
+        hint: "Die Variable ist der Name der „Box“, nicht der Inhalt."
+      },
+      {
+        category: "Level 1 – Grundlagen",
+        question: "Was bedeutet 'local' vor einer Variable?",
+        snippet: "local zahl = 10",
+        answers: [
+          "Sie ist nur in diesem Script-Bereich gültig.",
+          "Sie ist für alle Spiele weltweit sichtbar.",
+          "Sie macht die Zahl größer.",
+          "Sie macht die Zahl zufällig."
+        ],
+        correctIndex: 0,
+        explanation: "Eine lokale Variable gilt nur in diesem Script / Block.",
+        hint: "local = nur lokal, nicht überall."
+      },
+      {
+        category: "Level 1 – Grundlagen",
+        question: "Welche Zeile ist ein Kommentar in Luau?",
+        snippet: "",
+        answers: [
+          "-- Das ist ein Kommentar",
+          "++ Das ist ein Kommentar",
+          "// Das ist ein Kommentar",
+          "# Das ist ein Kommentar"
+        ],
+        correctIndex: 0,
+        explanation: "In Luau beginnen Kommentare mit zwei Minuszeichen.",
+        hint: "Kommentar = vom Computer ignoriert."
+      },
+      {
+        category: "Level 1 – Grundlagen",
+        question: "Was macht dieser Code?",
+        snippet: "print(\"Hallo\")",
+        answers: [
+          "Er zeigt \"Hallo\" im Ausgabefenster.",
+          "Er löscht das Spiel.",
+          "Er färbt einen Part rot.",
+          "Er bewegt den Spieler."
+        ],
+        correctIndex: 0,
+        explanation: "print schreibt Text oder Werte ins Ausgabefenster.",
+        hint: "Gut zum Testen, was der Code macht."
+      },
+      {
+        category: "Level 1 – if-Bedingungen",
+        question: "Was ist die Bedingung in diesem Code?",
+        snippet: "if 2 > 1 then\n  print(\"Ja\")\nend",
+        answers: [
+          "2 > 1",
+          "print(\"Ja\")",
+          "end",
+          "if then"
+        ],
+        correctIndex: 0,
+        explanation: "Die Bedingung ist der Vergleich 2 > 1.",
+        hint: "Die Bedingung steht zwischen if und then."
+      },
+      {
+        category: "Level 1 – if-Bedingungen",
+        question: "Wann wird \"Richtig\" ausgegeben?",
+        snippet: "local zahl = 3\nif zahl == 3 then\n  print(\"Richtig\")\nend",
+        answers: [
+          "Wenn zahl 2 ist.",
+          "Wenn zahl 3 ist.",
+          "Immer.",
+          "Nie."
+        ],
+        correctIndex: 1,
+        explanation: "Die Bedingung ist nur bei zahl = 3 wahr.",
+        hint: "== bedeutet „ist gleich“."
+      },
+      {
+        category: "Level 1 – Schleifen",
+        question: "Wie oft wird \"Hi\" ausgegeben?",
+        snippet: "for i = 1, 2 do\n  print(\"Hi\")\nend",
+        answers: [
+          "1 Mal",
+          "2 Mal",
+          "3 Mal",
+          "Unendlich oft"
+        ],
+        correctIndex: 1,
+        explanation: "\"for i = 1, 2\" läuft mit 1 und 2, also 2 Durchgänge.",
+        hint: "Zähle, wie viele Werte i annimmt."
+      },
+      {
+        category: "Level 1 – Schleifen",
+        question: "Was macht diese Schleife?",
+        snippet: "while true do\n  print(\"Läuft\")\nend",
+        answers: [
+          "Sie läuft einmal.",
+          "Sie läuft zweimal.",
+          "Sie läuft nie.",
+          "Sie läuft unendlich oft."
+        ],
+        correctIndex: 3,
+        explanation: "true ist immer wahr, daher endet die Schleife nicht.",
+        hint: "Es fehlt eine Bedingung, die irgendwann falsch wird."
+      },
+      {
+        category: "Level 1 – Schleifen",
+        question: "Welche Schleife ist korrekt geschrieben?",
+        snippet: "",
+        answers: [
+          "while do true end",
+          "while true do end",
+          "while true end do",
+          "while true do ... end"
+        ],
+        correctIndex: 3,
+        explanation: "In Luau: while BEDINGUNG do ... end",
+        hint: "Zwischen while und do steht die Bedingung."
+      },
+      {
+        category: "Level 1 – Roblox-Sicherheit",
+        question: "Jemand in Roblox fragt nach deiner Adresse. Was ist richtig?",
+        snippet: "",
+        answers: [
+          "Adresse schicken, wenn er nett ist.",
+          "Adresse nur Freundinnen schicken.",
+          "Keine Adresse schicken und einem Erwachsenen Bescheid sagen.",
+          "Adresse im Chat posten, damit alle sie sehen."
+        ],
+        correctIndex: 2,
+        explanation: "Persönliche Daten wie Adresse nie online teilen.",
+        hint: "Adresse, Telefonnummer und echte Namen sind privat."
+      },
+      {
+        category: "Level 1 – Roblox-Sicherheit",
+        question: "Eine fremde Person bittet dich um private Fotos. Was machst du?",
+        snippet: "",
+        answers: [
+          "Schicken, wenn sie Robux anbietet.",
+          "Nur ein bisschen schicken.",
+          "Nicht schicken, melden und mit einer erwachsenen Person reden.",
+          "Im Chat darüber lachen und nichts sagen."
+        ],
+        correctIndex: 2,
+        explanation: "Das kann gefährlich sein (Grooming). Fotos nie schicken, immer melden.",
+        hint: "Alles, was dich komisch fühlen lässt, ist ein Warnsignal."
+      },
+      {
+        category: "Level 1 – Roblox-Sicherheit",
+        question: "Jemand verspricht dir \"kostenlose Robux\" über einen Link. Was ist richtig?",
+        snippet: "",
+        answers: [
+          "Link anklicken, damit du viele Robux bekommst.",
+          "Den Link ignorieren und den Spieler melden.",
+          "Dein Passwort auf der Seite eingeben.",
+          "Deine Eltern fragen, ob du den Link anklicken sollst."
+        ],
+        correctIndex: 1,
+        explanation: "Solche Links sind fast immer Betrug (Scam).",
+        hint: "Robux gibt es nur über offizielle Wege von Roblox."
+      },
+      {
+        category: "Level 1 – Roblox-Sicherheit",
+        question: "Warum ist ein starkes Passwort wichtig?",
+        snippet: "",
+        answers: [
+          "Damit man es leicht erraten kann.",
+          "Damit andere dein Konto nicht klauen können.",
+          "Damit Roblox schneller lädt.",
+          "Damit du weniger Werbung siehst."
+        ],
+        correctIndex: 1,
+        explanation: "Ein starkes Passwort schützt dein Konto vor Diebstahl.",
+        hint: "Lange Passwörter mit Buchstaben, Zahlen, Zeichen sind besser."
+      },
+      {
+        category: "Level 1 – Roblox-Sicherheit",
+        question: "Was solltest du tun, wenn jemand dich im Chat beleidigt?",
+        snippet: "",
+        answers: [
+          "Zurückbeleidigen.",
+          "Es ignorieren und niemandem etwas sagen.",
+          "Spiel melden und mit einer erwachsenen Person reden.",
+          "Den Spieler in die Freundesliste aufnehmen."
+        ],
+        correctIndex: 2,
+        explanation: "Melden und mit Erwachsenen reden ist der beste Schutz.",
+        hint: "Du musst dir so etwas nicht gefallen lassen."
+      },
+      {
+        category: "Level 1 – Grundlagen",
+        question: "Was ist keine gute Beschreibung für eine Variable?",
+        snippet: "",
+        answers: [
+          "Eine Box mit einem Wert.",
+          "Ein Name für gespeicherte Daten.",
+          "Ein Befehl, der etwas ausführt.",
+          "Etwas, das sich ändern kann."
+        ],
+        correctIndex: 2,
+        explanation: "Ein Befehl ist keine Variable.",
+        hint: "Variablen speichern Daten, sie führen nichts aus."
+      },
+      {
+        category: "Level 1 – Grundlagen",
+        question: "Welche Zeile erstellt eine Variable mit der Zahl 5?",
+        snippet: "",
+        answers: [
+          "local zahl = 5",
+          "zahl == 5",
+          "print(5)",
+          "if 5 then"
+        ],
+        correctIndex: 0,
+        explanation: "Nur die erste Zeile legt eine Variable an.",
+        hint: "Achte auf local und =."
+      },
+      {
+        category: "Level 1 – Grundlagen",
+        question: "Welche Zeile ist KEIN gültiger Variablenname?",
+        snippet: "",
+        answers: [
+          "punkte",
+          "anzahl_1",
+          "2zahl",
+          "spielerName"
+        ],
+        correctIndex: 2,
+        explanation: "Variablennamen dürfen nicht mit einer Zahl beginnen.",
+        hint: "Der erste Buchstabe muss ein Buchstabe sein."
+      },
+      {
+        category: "Level 1 – Grundlagen",
+        question: "Was passiert hier?",
+        snippet: "local z = 1\nz = z + 1\nprint(z)",
+        answers: [
+          "Es wird 1 ausgegeben.",
+          "Es wird 2 ausgegeben.",
+          "Es wird 0 ausgegeben.",
+          "Es wird 11 ausgegeben."
+        ],
+        correctIndex: 1,
+        explanation: "z wird von 1 auf 2 erhöht.",
+        hint: "z + 1 bedeutet: um 1 erhöhen."
+      },
+      {
+        category: "Level 1 – Grundlagen",
+        question: "Was gehört nicht zu einem Script?",
+        snippet: "",
+        answers: [
+          "Variablen",
+          "Bedingungen (if)",
+          "Schleifen (while, for)",
+          "Der echte Tisch im Klassenzimmer"
+        ],
+        correctIndex: 3,
+        explanation: "Der echte Tisch gehört zur Realität, nicht zum Script.",
+        hint: "Script = alles, was im Code steht."
+      },
+
       /* ===================== VARIABLEN (10) ===================== */
       {
         category: "Variablen",
@@ -235,7 +517,7 @@
       {
         category: "Variablen",
         question: "Was bedeutet das Wort 'local' vor einer Variable?",
-        snippet: `local zahl = 5`,
+        snippet: "local zahl = 5",
         answers: [
           "Die Variable ist überall im Internet sichtbar.",
           "Die Variable gehört nur zu diesem Script-Bereich.",
@@ -249,8 +531,7 @@
       {
         category: "Variablen",
         question: "Was wird hier ausgegeben?",
-        snippet: `local zahl = 5
-print(zahl)`,
+        snippet: "local zahl = 5\nprint(zahl)",
         answers: [
           "0",
           "5",
@@ -264,10 +545,7 @@ print(zahl)`,
       {
         category: "Variablen",
         question: "Was passiert hier?",
-        snippet: `local x = 3
-local y = 4
-local summe = x + y
-print(summe)`,
+        snippet: "local x = 3\nlocal y = 4\nlocal summe = x + y\nprint(summe)",
         answers: [
           "Es wird 3 ausgegeben.",
           "Es wird 4 ausgegeben.",
@@ -295,9 +573,7 @@ print(summe)`,
       {
         category: "Variablen",
         question: "Was passiert hier mit 'punkte'?",
-        snippet: `local punkte = 0
-punkte = punkte + 10
-print(punkte)`,
+        snippet: "local punkte = 0\npunkte = punkte + 10\nprint(punkte)",
         answers: [
           "punkte bleibt 0.",
           "punkte wird 10.",
@@ -311,8 +587,7 @@ print(punkte)`,
       {
         category: "Variablen",
         question: "Was ist nach diesem Script der Wert von 'name'?",
-        snippet: `local name = "Alex"
-name = "Sam"`,
+        snippet: "local name = \"Alex\"\nname = \"Sam\"",
         answers: [
           "Alex",
           "Sam",
@@ -326,9 +601,7 @@ name = "Sam"`,
       {
         category: "Variablen",
         question: "Was bedeutet '..' bei Text?",
-        snippet: `local text = "Hallo"
-text = text .. " Welt"
-print(text)`,
+        snippet: "local text = \"Hallo\"\ntext = text .. \" Welt\"\nprint(text)",
         answers: [
           "Es löscht Text.",
           "Es verbindet Texte.",
@@ -342,9 +615,7 @@ print(text)`,
       {
         category: "Variablen",
         question: "Was wird ausgegeben?",
-        snippet: `local zahl = 10
-zahl = zahl - 3
-print(zahl)`,
+        snippet: "local zahl = 10\nzahl = zahl - 3\nprint(zahl)",
         answers: [
           "3",
           "7",
@@ -358,10 +629,7 @@ print(zahl)`,
       {
         category: "Variablen",
         question: "Was wird ausgegeben?",
-        snippet: `local a = 1
-local b = 2
-local c = 3
-print(a + b + c)`,
+        snippet: "local a = 1\nlocal b = 2\nlocal c = 3\nprint(a + b + c)",
         answers: [
           "1",
           "3",
@@ -377,7 +645,7 @@ print(a + b + c)`,
       {
         category: "Operatoren & Ausdrücke",
         question: "Was bedeutet der Operator '%' in Luau?",
-        snippet: `local rest = 7 % 3`,
+        snippet: "local rest = 7 % 3",
         answers: [
           "Er gibt den Rest bei einer Division.",
           "Er macht eine Prozentrechnung.",
@@ -391,8 +659,7 @@ print(a + b + c)`,
       {
         category: "Operatoren & Ausdrücke",
         question: "Was wird hier ausgegeben?",
-        snippet: `local rest = 7 % 3
-print(rest)`,
+        snippet: "local rest = 7 % 3\nprint(rest)",
         answers: [
           "0",
           "1",
@@ -406,9 +673,7 @@ print(rest)`,
       {
         category: "Operatoren & Ausdrücke",
         question: "Was macht der Ausdruck 'x * y'?",
-        snippet: `local x = 2
-local y = 4
-print(x * y)`,
+        snippet: "local x = 2\nlocal y = 4\nprint(x * y)",
         answers: [
           "Er addiert x und y.",
           "Er subtrahiert x von y.",
@@ -436,7 +701,7 @@ print(x * y)`,
       {
         category: "Operatoren & Ausdrücke",
         question: "Was bedeutet '==' in einer Bedingung?",
-        snippet: `if zahl == 5 then`,
+        snippet: "if zahl == 5 then",
         answers: [
           "größer als",
           "kleiner als",
@@ -450,9 +715,7 @@ print(x * y)`,
       {
         category: "Operatoren & Ausdrücke",
         question: "Was wird ausgegeben?",
-        snippet: `local x = 10
-local y = 2
-print(x / y)`,
+        snippet: "local x = 10\nlocal y = 2\nprint(x / y)",
         answers: [
           "5",
           "8",
@@ -480,7 +743,7 @@ print(x / y)`,
       {
         category: "Operatoren & Ausdrücke",
         question: "Was macht dieser Ausdruck?",
-        snippet: `local ergebnis = 2 + 3 * 4`,
+        snippet: "local ergebnis = 2 + 3 * 4",
         answers: [
           "20",
           "14",
@@ -494,7 +757,7 @@ print(x / y)`,
       {
         category: "Operatoren & Ausdrücke",
         question: "Was bedeutet 'zahl >= 10'?",
-        snippet: `if zahl >= 10 then`,
+        snippet: "if zahl >= 10 then",
         answers: [
           "zahl ist kleiner als 10",
           "zahl ist größer oder gleich 10",
@@ -508,7 +771,7 @@ print(x / y)`,
       {
         category: "Operatoren & Ausdrücke",
         question: "Was bedeutet 'zahl ~= 5'?",
-        snippet: `if zahl ~= 5 then`,
+        snippet: "if zahl ~= 5 then",
         answers: [
           "zahl ist gleich 5",
           "zahl ist kleiner als 5",
@@ -524,10 +787,7 @@ print(x / y)`,
       {
         category: "Bedingungen (if)",
         question: "Wann wird der Text ausgegeben?",
-        snippet: `local zahl = 5
-if zahl == 5 then
-  print("fünf")
-end`,
+        snippet: "local zahl = 5\nif zahl == 5 then\n  print(\"fünf\")\nend",
         answers: [
           "Wenn zahl kleiner als 5 ist.",
           "Wenn zahl größer als 5 ist.",
@@ -541,10 +801,7 @@ end`,
       {
         category: "Bedingungen (if)",
         question: "Wann wird 'klein' ausgegeben?",
-        snippet: `local z = 2
-if z < 5 then
-  print("klein")
-end`,
+        snippet: "local z = 2\nif z < 5 then\n  print(\"klein\")\nend",
         answers: [
           "Wenn z größer als 5 ist.",
           "Wenn z gleich 5 ist.",
@@ -558,10 +815,7 @@ end`,
       {
         category: "Bedingungen (if)",
         question: "Was passiert hier?",
-        snippet: `local z = 8
-if z == 10 then
-  print("zehn")
-end`,
+        snippet: "local z = 8\nif z == 10 then\n  print(\"zehn\")\nend",
         answers: [
           "zehn wird ausgegeben.",
           "8 wird ausgegeben.",
@@ -589,13 +843,10 @@ end`,
       {
         category: "Bedingungen (if)",
         question: "Was passiert hier?",
-        snippet: `local x = 3
-if x >= 3 then
-  print("okay")
-end`,
+        snippet: "local x = 3\nif x >= 3 then\n  print(\"okay\")\nend",
         answers: [
           "Nichts.",
-          "Es wird 'okay' ausgegeben.",
+          "Es wird \"okay\" ausgegeben.",
           "Es kommt ein Fehler.",
           "Es wird 3 ausgegeben."
         ],
@@ -606,11 +857,7 @@ end`,
       {
         category: "Bedingungen (if)",
         question: "Was bedeutet 'else'?",
-        snippet: `if zahl > 0 then
-  print("positiv")
-else
-  print("nicht positiv")
-end`,
+        snippet: "if zahl > 0 then\n  print(\"positiv\")\nelse\n  print(\"nicht positiv\")\nend",
         answers: [
           "nochmal if",
           "sonst / anderenfalls",
@@ -624,12 +871,7 @@ end`,
       {
         category: "Bedingungen (if)",
         question: "Was wird ausgegeben?",
-        snippet: `local zahl = 0
-if zahl > 0 then
-  print("größer 0")
-else
-  print("nicht größer 0")
-end`,
+        snippet: "local zahl = 0\nif zahl > 0 then\n  print(\"größer 0\")\nelse\n  print(\"nicht größer 0\")\nend",
         answers: [
           "größer 0",
           "nicht größer 0",
@@ -643,10 +885,7 @@ end`,
       {
         category: "Bedingungen (if)",
         question: "Was passiert mit 'gerade'?",
-        snippet: `local z = 4
-if z % 2 == 0 then
-  print("gerade")
-end`,
+        snippet: "local z = 4\nif z % 2 == 0 then\n  print(\"gerade\")\nend",
         answers: [
           "gerade wird ausgegeben.",
           "ungerade wird ausgegeben.",
@@ -660,10 +899,7 @@ end`,
       {
         category: "Bedingungen (if)",
         question: "Was bedeutet 'if wahr == true then'?",
-        snippet: `local wahr = true
-if wahr == true then
-  print("ja")
-end`,
+        snippet: "local wahr = true\nif wahr == true then\n  print(\"ja\")\nend",
         answers: [
           "Prüft, ob wahr falsch ist.",
           "Prüft, ob wahr wirklich true ist.",
@@ -677,9 +913,7 @@ end`,
       {
         category: "Bedingungen (if)",
         question: "Was bedeutet 'if not bedingung then'?",
-        snippet: `if not fertig then
-  print("noch nicht fertig")
-end`,
+        snippet: "if not fertig then\n  print(\"noch nicht fertig\")\nend",
         answers: [
           "Wenn fertig wahr ist.",
           "Wenn fertig nicht wahr ist.",
@@ -695,11 +929,7 @@ end`,
       {
         category: "Schleifen",
         question: "Wie oft wird hier gezählt?",
-        snippet: `local i = 1
-while i <= 3 do
-  print(i)
-  i = i + 1
-end`,
+        snippet: "local i = 1\nwhile i <= 3 do\n  print(i)\n  i = i + 1\nend",
         answers: [
           "1 Mal",
           "2 Mal",
@@ -727,9 +957,7 @@ end`,
       {
         category: "Schleifen",
         question: "Welche Zahlen werden ausgegeben?",
-        snippet: `for i = 1, 3 do
-  print(i)
-end`,
+        snippet: "for i = 1, 3 do\n  print(i)\nend",
         answers: [
           "1, 2",
           "1, 2, 3",
@@ -743,9 +971,7 @@ end`,
       {
         category: "Schleifen",
         question: "Welche Zahlen werden ausgegeben?",
-        snippet: `for i = 2, 4 do
-  print(i)
-end`,
+        snippet: "for i = 2, 4 do\n  print(i)\nend",
         answers: [
           "2, 3, 4",
           "1, 2, 3, 4",
@@ -759,11 +985,7 @@ end`,
       {
         category: "Schleifen",
         question: "Was passiert hier?",
-        snippet: `local z = 3
-while z > 0 do
-  print(z)
-  z = z - 1
-end`,
+        snippet: "local z = 3\nwhile z > 0 do\n  print(z)\n  z = z - 1\nend",
         answers: [
           "Es wird unendlich gezählt.",
           "Es wird 3, 2, 1 ausgegeben.",
@@ -777,10 +999,7 @@ end`,
       {
         category: "Schleifen",
         question: "Was macht 'wait(1)' in einer Schleife?",
-        snippet: `while true do
-  print("Tick")
-  wait(1)
-end`,
+        snippet: "while true do\n  print(\"Tick\")\n  wait(1)\nend",
         answers: [
           "Es stoppt das Script.",
           "Es wartet 1 Sekunde vor Script-Start.",
@@ -794,11 +1013,7 @@ end`,
       {
         category: "Schleifen",
         question: "Wie oft läuft diese Schleife maximal?",
-        snippet: `local a = 0
-while a < 5 do
-  a = a + 1
-  print(a)
-end`,
+        snippet: "local a = 0\nwhile a < 5 do\n  a = a + 1\n  print(a)\nend",
         answers: [
           "Gar nicht",
           "1 Mal",
@@ -812,14 +1027,12 @@ end`,
       {
         category: "Schleifen",
         question: "Was passiert hier?",
-        snippet: `for i = 1, 5 do
-  print("Hallo")
-end`,
+        snippet: "for i = 1, 5 do\n  print(\"Hallo\")\nend",
         answers: [
-          "„Hallo“ wird 1 Mal ausgegeben.",
-          "„Hallo“ wird 5 Mal ausgegeben.",
-          "„Hallo“ wird nie ausgegeben.",
-          "„Hallo“ wird unendlich oft ausgegeben."
+          "\"Hallo\" wird 1 Mal ausgegeben.",
+          "\"Hallo\" wird 5 Mal ausgegeben.",
+          "\"Hallo\" wird nie ausgegeben.",
+          "\"Hallo\" wird unendlich oft ausgegeben."
         ],
         correctIndex: 1,
         explanation: "Die Schleife läuft 5 Durchgänge.",
@@ -842,9 +1055,7 @@ end`,
       {
         category: "Schleifen",
         question: "Was macht diese Schleife?",
-        snippet: `while true do
-  print("Läuft")
-end`,
+        snippet: "while true do\n  print(\"Läuft\")\nend",
         answers: [
           "Sie läuft einmal.",
           "Sie läuft zweimal.",
@@ -888,16 +1099,12 @@ end`,
       {
         category: "Funktionen",
         question: "Was passiert hier?",
-        snippet: `local function sagHallo()
-  print("Hallo")
-end
-
-sagHallo()`,
+        snippet: "local function sagHallo()\n  print(\"Hallo\")\nend\n\nsagHallo()",
         answers: [
           "Es wird nichts ausgegeben.",
-          "Es wird „Hallo“ ausgegeben.",
+          "Es wird \"Hallo\" ausgegeben.",
           "Es kommt ein Fehler.",
-          "Es wird „sagHallo“ ausgegeben."
+          "Es wird \"sagHallo\" ausgegeben."
         ],
         correctIndex: 1,
         explanation: "Die Funktion wird definiert und dann aufgerufen.",
@@ -906,9 +1113,7 @@ sagHallo()`,
       {
         category: "Funktionen",
         question: "Was bedeutet 'parameter' in einer Funktion?",
-        snippet: `local function zeigeZahl(zahl)
-  print(zahl)
-end`,
+        snippet: "local function zeigeZahl(zahl)\n  print(zahl)\nend",
         answers: [
           "Ein Name der Funktion.",
           "Eine Variable, die beim Aufruf einen Wert bekommt.",
@@ -922,11 +1127,7 @@ end`,
       {
         category: "Funktionen",
         question: "Was wird ausgegeben?",
-        snippet: `local function summe(a, b)
-  print(a + b)
-end
-
-summe(2, 3)`,
+        snippet: "local function summe(a, b)\n  print(a + b)\nend\n\nsumme(2, 3)",
         answers: [
           "2",
           "3",
@@ -954,9 +1155,7 @@ summe(2, 3)`,
       {
         category: "Funktionen",
         question: "Was bedeutet 'return' in einer Funktion?",
-        snippet: `local function doppelt(x)
-  return x * 2
-end`,
+        snippet: "local function doppelt(x)\n  return x * 2\nend",
         answers: [
           "Die Funktion stoppt und gibt einen Wert zurück.",
           "Die Funktion startet neu.",
@@ -970,11 +1169,9 @@ end`,
       {
         category: "Funktionen",
         question: "Was passiert hier?",
-        snippet: `local function info()
-  print("Info")
-end`,
+        snippet: "local function info()\n  print(\"Info\")\nend",
         answers: [
-          "„Info“ wird ausgegeben.",
+          "\"Info\" wird ausgegeben.",
           "Nichts, weil die Funktion nicht aufgerufen wird.",
           "Es kommt ein Fehler.",
           "Das Spiel stoppt."
@@ -1000,11 +1197,7 @@ end`,
       {
         category: "Funktionen",
         question: "Was wird ausgegeben?",
-        snippet: `local function plusEins(x)
-  return x + 1
-end
-
-print( plusEins(4) )`,
+        snippet: "local function plusEins(x)\n  return x + 1\nend\n\nprint( plusEins(4) )",
         answers: [
           "1",
           "4",
@@ -1034,9 +1227,7 @@ print( plusEins(4) )`,
       {
         category: "Events",
         question: "Wann wird die Funktion aufgerufen?",
-        snippet: `würfel.Touched:Connect(function()
-  print("Berührt")
-end)`,
+        snippet: "würfel.Touched:Connect(function()\n  print(\"Berührt\")\nend)",
         answers: [
           "Beim Spielstart.",
           "Wenn man speichert.",
@@ -1050,7 +1241,7 @@ end)`,
       {
         category: "Events",
         question: "Welcher Service wird für Tasten benutzt?",
-        snippet: `local eingaben = game:GetService("UserInputService")`,
+        snippet: "local eingaben = game:GetService(\"UserInputService\")",
         answers: [
           "Workspace",
           "UserInputService",
@@ -1064,11 +1255,7 @@ end)`,
       {
         category: "Events",
         question: "Wann wird der Text ausgegeben?",
-        snippet: `eingaben.InputBegan:Connect(function(taste)
-  if taste.KeyCode == Enum.KeyCode.Space then
-    print("Leertaste")
-  end
-end)`,
+        snippet: "eingaben.InputBegan:Connect(function(taste)\n  if taste.KeyCode == Enum.KeyCode.Space then\n    print(\"Leertaste\")\n  end\nend)",
         answers: [
           "Wenn irgendeine Taste gedrückt wird.",
           "Wenn die Leertaste gedrückt wird.",
@@ -1082,7 +1269,7 @@ end)`,
       {
         category: "Events",
         question: "Was macht ':Connect'?",
-        snippet: `event:Connect(function() end)`,
+        snippet: "event:Connect(function() end)",
         answers: [
           "Es löscht das Event.",
           "Es verbindet eine Funktion mit einem Event.",
@@ -1096,9 +1283,7 @@ end)`,
       {
         category: "Events",
         question: "Was wird im Code 'CharacterAdded' ausgelöst?",
-        snippet: `player.CharacterAdded:Connect(function()
-  print("Figur geladen")
-end)`,
+        snippet: "player.CharacterAdded:Connect(function()\n  print(\"Figur geladen\")\nend)",
         answers: [
           "Wenn das Spiel gespeichert wird.",
           "Wenn der Spieler eine Taste drückt.",
@@ -1126,9 +1311,7 @@ end)`,
       {
         category: "Events",
         question: "Was ist 'MouseButton1Click'?",
-        snippet: `button.MouseButton1Click:Connect(function()
-  print("Klick")
-end)`,
+        snippet: "button.MouseButton1Click:Connect(function()\n  print(\"Klick\")\nend)",
         answers: [
           "Ein Tastatur-Event.",
           "Ein Event für linken Mausklick auf ein GUI-Element.",
@@ -1142,11 +1325,9 @@ end)`,
       {
         category: "Events",
         question: "Was passiert hier?",
-        snippet: `würfel.Touched:Connect(function(teil)
-  print("Berührt von:", teil.Name)
-end)`,
+        snippet: "würfel.Touched:Connect(function(teil)\n  print(\"Berührt von:\", teil.Name)\nend)",
         answers: [
-          "Es wird immer 'Berührt' ohne Info ausgegeben.",
+          "Es wird immer \"Berührt\" ohne Info ausgegeben.",
           "Es wird nie etwas ausgegeben.",
           "Es wird der Name des berührenden Teils ausgegeben.",
           "Der Part wird gelöscht."
@@ -1158,9 +1339,7 @@ end)`,
       {
         category: "Events",
         question: "Was bedeutet 'humanoid.Died:Connect(...)'?",
-        snippet: `humanoid.Died:Connect(function()
-  print("Spieler ist gestorben")
-end)`,
+        snippet: "humanoid.Died:Connect(function()\n  print(\"Spieler ist gestorben\")\nend)",
         answers: [
           "Wenn das Spiel startet.",
           "Wenn der Spieler springt.",
@@ -1190,8 +1369,7 @@ end)`,
       {
         category: "Parts & Eigenschaften",
         question: "Was macht Anchored = true?",
-        snippet: `local würfel = script.Parent
-würfel.Anchored = true`,
+        snippet: "local würfel = script.Parent\nwürfel.Anchored = true",
         answers: [
           "Der Part fällt nicht und bleibt fest.",
           "Der Part dreht sich.",
@@ -1205,8 +1383,7 @@ würfel.Anchored = true`,
       {
         category: "Parts & Eigenschaften",
         question: "Was macht CanCollide = false?",
-        snippet: `local p = script.Parent
-p.CanCollide = false`,
+        snippet: "local p = script.Parent\np.CanCollide = false",
         answers: [
           "Der Part ist unzerstörbar.",
           "Der Part ist unsichtbar.",
@@ -1220,8 +1397,7 @@ p.CanCollide = false`,
       {
         category: "Parts & Eigenschaften",
         question: "Was bedeutet Transparency = 0.5?",
-        snippet: `local p = script.Parent
-p.Transparency = 0.5`,
+        snippet: "local p = script.Parent\np.Transparency = 0.5",
         answers: [
           "Ganz sichtbar.",
           "Ganz unsichtbar.",
@@ -1235,8 +1411,7 @@ p.Transparency = 0.5`,
       {
         category: "Parts & Eigenschaften",
         question: "Was macht dieses Script?",
-        snippet: `local p = script.Parent
-p.Size = Vector3.new(5, 5, 5)`,
+        snippet: "local p = script.Parent\np.Size = Vector3.new(5, 5, 5)",
         answers: [
           "Der Part wird größer (5x5x5).",
           "Der Part wird kleiner.",
@@ -1250,8 +1425,7 @@ p.Size = Vector3.new(5, 5, 5)`,
       {
         category: "Parts & Eigenschaften",
         question: "Was macht dieses Script?",
-        snippet: `local p = script.Parent
-p.Color = Color3.fromRGB(255, 0, 0)`,
+        snippet: "local p = script.Parent\np.Color = Color3.fromRGB(255, 0, 0)",
         answers: [
           "Part wird rot.",
           "Part wird grün.",
@@ -1265,7 +1439,7 @@ p.Color = Color3.fromRGB(255, 0, 0)`,
       {
         category: "Parts & Eigenschaften",
         question: "Was macht BrickColor.new(\"Bright green\")?",
-        snippet: `p.BrickColor = BrickColor.new("Bright green")`,
+        snippet: "p.BrickColor = BrickColor.new(\"Bright green\")",
         answers: [
           "Setzt eine vordefinierte grüne Farbe.",
           "Löscht den Part.",
@@ -1293,8 +1467,7 @@ p.Color = Color3.fromRGB(255, 0, 0)`,
       {
         category: "Parts & Eigenschaften",
         question: "Was passiert?",
-        snippet: `local p = script.Parent
-p.Material = Enum.Material.Neon`,
+        snippet: "local p = script.Parent\np.Material = Enum.Material.Neon",
         answers: [
           "Part leuchtet wie Neon.",
           "Part verschwindet.",
@@ -1308,8 +1481,7 @@ p.Material = Enum.Material.Neon`,
       {
         category: "Parts & Eigenschaften",
         question: "Was passiert?",
-        snippet: `local p = script.Parent
-p.Position = p.Position + Vector3.new(0, 1, 0)`,
+        snippet: "local p = script.Parent\np.Position = p.Position + Vector3.new(0, 1, 0)",
         answers: [
           "Part bewegt sich etwas nach oben.",
           "Part bewegt sich etwas nach unten.",
@@ -1339,18 +1511,15 @@ p.Position = p.Position + Vector3.new(0, 1, 0)`,
       {
         category: "GUI",
         question: "Was macht dieses Script?",
-        snippet: `local spieler = game.Players.LocalPlayer
-local gui = Instance.new("ScreenGui", spieler.PlayerGui)
-local label = Instance.new("TextLabel", gui)
-label.Text = "Hallo"`,
+        snippet: "local spieler = game.Players.LocalPlayer\nlocal gui = Instance.new(\"ScreenGui\", spieler.PlayerGui)\nlocal label = Instance.new(\"TextLabel\", gui)\nlabel.Text = \"Hallo\"",
         answers: [
-          "Es zeigt 'Hallo' auf dem Bildschirm.",
+          "Es zeigt \"Hallo\" auf dem Bildschirm.",
           "Es löscht den Spieler.",
           "Es färbt einen Part rot.",
           "Es stoppt das Spiel."
         ],
         correctIndex: 0,
-        explanation: "Ein TextLabel mit Text 'Hallo' wird erstellt.",
+        explanation: "Ein TextLabel mit Text \"Hallo\" wird erstellt.",
         hint: "PlayerGui zeigt Dinge nur für diesen Spieler."
       },
       {
@@ -1370,7 +1539,7 @@ label.Text = "Hallo"`,
       {
         category: "GUI",
         question: "Was macht diese Zeile?",
-        snippet: `label.Text = "Start"`,
+        snippet: "label.Text = \"Start\"",
         answers: [
           "Sie erstellt ein neues Label.",
           "Sie setzt den Text eines Labels.",
@@ -1384,7 +1553,7 @@ label.Text = "Hallo"`,
       {
         category: "GUI",
         question: "Was macht Size beim TextLabel?",
-        snippet: `label.Size = UDim2.new(0, 200, 0, 50)`,
+        snippet: "label.Size = UDim2.new(0, 200, 0, 50)",
         answers: [
           "Es legt die Größe des Texts in Pixeln fest.",
           "Es ändert die Schriftart.",
@@ -1398,7 +1567,7 @@ label.Text = "Hallo"`,
       {
         category: "GUI",
         question: "Was bedeutet Position?",
-        snippet: `label.Position = UDim2.new(0.5, -100, 0, 20)`,
+        snippet: "label.Position = UDim2.new(0.5, -100, 0, 20)",
         answers: [
           "Zufällige Position.",
           "Position auf dem Bildschirm.",
@@ -1412,7 +1581,7 @@ label.Text = "Hallo"`,
       {
         category: "GUI",
         question: "Was macht dieses Script mit dem Label?",
-        snippet: `label.Visible = false`,
+        snippet: "label.Visible = false",
         answers: [
           "Label wird unsichtbar.",
           "Label wird größer.",
@@ -1440,9 +1609,7 @@ label.Text = "Hallo"`,
       {
         category: "GUI",
         question: "Was macht dieses Event?",
-        snippet: `button.MouseButton1Click:Connect(function()
-  print("Klick")
-end)`,
+        snippet: "button.MouseButton1Click:Connect(function()\n  print(\"Klick\")\nend)",
         answers: [
           "Reagiert auf linken Mausklick auf den Button.",
           "Reagiert auf Leertaste.",
@@ -1486,7 +1653,7 @@ end)`,
       {
         category: "Spieler & Input",
         question: "Was macht dieser Code?",
-        snippet: `local eingaben = game:GetService("UserInputService")`,
+        snippet: "local eingaben = game:GetService(\"UserInputService\")",
         answers: [
           "Er holt den Service für Benutzereingaben.",
           "Er holt den Soundservice.",
@@ -1499,12 +1666,8 @@ end)`,
       },
       {
         category: "Spieler & Input",
-        question: "Wann wird 'Leertaste' ausgegeben?",
-        snippet: `eingaben.InputBegan:Connect(function(taste)
-  if taste.KeyCode == Enum.KeyCode.Space then
-    print("Leertaste")
-  end
-end)`,
+        question: "Wann wird \"Leertaste\" ausgegeben?",
+        snippet: "eingaben.InputBegan:Connect(function(taste)\n  if taste.KeyCode == Enum.KeyCode.Space then\n    print(\"Leertaste\")\n  end\nend)",
         answers: [
           "Beim Start.",
           "Beim Klick mit der Maus.",
@@ -1517,10 +1680,8 @@ end)`,
       },
       {
         category: "Spieler & Input",
-        question: "Wann wird 'E' ausgegeben?",
-        snippet: `if taste.KeyCode == Enum.KeyCode.E then
-  print("E")
-end`,
+        question: "Wann wird \"E\" ausgegeben?",
+        snippet: "if taste.KeyCode == Enum.KeyCode.E then\n  print(\"E\")\nend",
         answers: [
           "Wenn ESC gedrückt wird.",
           "Wenn E gedrückt wird.",
@@ -1562,8 +1723,7 @@ end`,
       {
         category: "Spieler & Input",
         question: "Was macht dieser Code?",
-        snippet: `local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()`,
+        snippet: "local player = game.Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()",
         answers: [
           "Er wartet, bis eine Spielerfigur verfügbar ist.",
           "Er löscht die Spielerfigur.",
@@ -1572,7 +1732,7 @@ local character = player.Character or player.CharacterAdded:Wait()`,
         ],
         correctIndex: 0,
         explanation: "Entweder vorhandene Figur oder warten, bis eine kommt.",
-        hint: "or ist hier eine Art 'sonst warte'."
+        hint: "or ist hier eine Art \"sonst warte\"."
       },
       {
         category: "Spieler & Input",
@@ -1591,7 +1751,7 @@ local character = player.Character or player.CharacterAdded:Wait()`,
       {
         category: "Spieler & Input",
         question: "Was macht dieser Code?",
-        snippet: `local humanoid = character:WaitForChild("Humanoid")`,
+        snippet: "local humanoid = character:WaitForChild(\"Humanoid\")",
         answers: [
           "Er erstellt einen neuen Humanoid.",
           "Er wartet, bis der Humanoid im Charakter vorhanden ist.",
@@ -1605,7 +1765,7 @@ local character = player.Character or player.CharacterAdded:Wait()`,
       {
         category: "Spieler & Input",
         question: "Was macht dieser Code?",
-        snippet: `humanoid.Jump = true`,
+        snippet: "humanoid.Jump = true",
         answers: [
           "Figur bewegt sich nach vorne.",
           "Figur wird unsichtbar.",
@@ -1635,8 +1795,7 @@ local character = player.Character or player.CharacterAdded:Wait()`,
       {
         category: "Zufall & Gemischt",
         question: "Was wird hier sicher ausgegeben?",
-        snippet: `local z = math.random(5, 5)
-print(z)`,
+        snippet: "local z = math.random(5, 5)\nprint(z)",
         answers: [
           "Immer 5.",
           "Immer 0.",
@@ -1678,14 +1837,11 @@ print(z)`,
       {
         category: "Zufall & Gemischt",
         question: "Was macht dieses Script alle 2 Sekunden?",
-        snippet: `while true do
-  print("Tick")
-  wait(2)
-end`,
+        snippet: "while true do\n  print(\"Tick\")\n  wait(2)\nend",
         answers: [
-          "Gibt einmal 'Tick' aus.",
-          "Gibt unendlich 'Tick' alle 2 Sekunden aus.",
-          "Gibt jeden Frame 'Tick' aus.",
+          "Gibt einmal \"Tick\" aus.",
+          "Gibt unendlich \"Tick\" alle 2 Sekunden aus.",
+          "Gibt jeden Frame \"Tick\" aus.",
           "Gibt nie etwas aus."
         ],
         correctIndex: 1,
@@ -1695,7 +1851,7 @@ end`,
       {
         category: "Zufall & Gemischt",
         question: "Was bedeutet '--' in Luau?",
-        snippet: `-- Das ist ein Kommentar`,
+        snippet: "-- Das ist ein Kommentar",
         answers: [
           "Es ist eine Schleife.",
           "Es ist ein Fehler.",
@@ -1739,10 +1895,10 @@ end`,
         question: "Welcher Code bewegt einen Part leicht nach oben?",
         snippet: "",
         answers: [
-          `p.Position = p.Position + Vector3.new(0, 1, 0)`,
-          `p.Position = p.Position + Vector3.new(0, -1, 0)`,
-          `p.Position = p.Position + Vector3.new(1, 0, 0)`,
-          `p.Position = p.Position + Vector3.new(0, 0, 0)`
+          "p.Position = p.Position + Vector3.new(0, 1, 0)",
+          "p.Position = p.Position + Vector3.new(0, -1, 0)",
+          "p.Position = p.Position + Vector3.new(1, 0, 0)",
+          "p.Position = p.Position + Vector3.new(0, 0, 0)"
         ],
         correctIndex: 0,
         explanation: "Y-Achse nach oben ist positiv.",
